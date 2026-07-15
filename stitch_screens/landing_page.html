@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NetGraph | Enterprise-Grade Professional Networking</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-error-container": "#93000a",
+                      "on-surface-variant": "#414755",
+                      "tertiary-fixed-dim": "#00daf3",
+                      "on-background": "#191c1e",
+                      "secondary-fixed-dim": "#d0bcff",
+                      "secondary-fixed": "#e9ddff",
+                      "inverse-primary": "#adc6ff",
+                      "surface-container-low": "#f2f4f6",
+                      "on-tertiary-container": "#f7feff",
+                      "primary": "#0058bc",
+                      "outline-variant": "#c1c6d7",
+                      "on-surface": "#191c1e",
+                      "primary-container": "#0070eb",
+                      "surface": "#f7f9fb",
+                      "outline": "#717786",
+                      "on-secondary-fixed-variant": "#522aa7",
+                      "surface-container-highest": "#e0e3e5",
+                      "on-tertiary": "#ffffff",
+                      "secondary-container": "#a480fe",
+                      "surface-bright": "#f7f9fb",
+                      "surface-container-high": "#e6e8ea",
+                      "surface-tint": "#005bc1",
+                      "on-primary": "#ffffff",
+                      "surface-variant": "#e0e3e5",
+                      "surface-dim": "#d8dadc",
+                      "primary-fixed-dim": "#adc6ff",
+                      "surface-container": "#eceef0",
+                      "primary-fixed": "#d8e2ff",
+                      "on-secondary-container": "#39008c",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-container": "#008190",
+                      "on-secondary-fixed": "#23005c",
+                      "on-error": "#ffffff",
+                      "tertiary-fixed": "#9cf0ff",
+                      "inverse-surface": "#2d3133",
+                      "secondary": "#6b46c1",
+                      "on-tertiary-fixed-variant": "#004f58",
+                      "tertiary": "#006672",
+                      "error": "#ba1a1a",
+                      "on-tertiary-fixed": "#001f24",
+                      "on-primary-fixed": "#001a41",
+                      "on-primary-fixed-variant": "#004493",
+                      "on-secondary": "#ffffff",
+                      "inverse-on-surface": "#eff1f3",
+                      "background": "#f7f9fb",
+                      "error-container": "#ffdad6",
+                      "on-primary-container": "#fefcff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "40px",
+                      "gutter-md": "24px",
+                      "gutter-sm": "16px",
+                      "margin-mobile": "16px",
+                      "base": "8px",
+                      "container-max": "1440px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Inter"],
+                      "body-md": ["Inter"],
+                      "headline-xl": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "label-md": ["Inter"],
+                      "body-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0px 10px 30px rgba(0, 122, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .primary-gradient {
+            background: linear-gradient(135deg, #0058bc 0%, #6b46c1 100%);
+        }
+        .neon-glow {
+            box-shadow: 0 0 15px rgba(0, 218, 243, 0.3);
+        }
+    </style>
+</head>
+<body class="text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/70 backdrop-blur-md border-b border-white/20 shadow-[0px_10px_30px_rgba(0,122,255,0.08)]">
+<div class="flex justify-between items-center px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md font-bold text-primary">NetGraph</div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="font-body-md text-body-md text-primary border-b-2 border-primary pb-1 transition-colors duration-200" href="#">Solutions</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Enterprise</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Insights</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Pricing</a>
+</div>
+<div class="flex items-center space-x-4">
+<button class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200 scale-95 active:scale-90 transition-transform">Sign In</button>
+<button class="primary-gradient text-on-primary font-body-md text-body-md px-6 py-2.5 rounded-full scale-95 active:scale-90 transition-transform shadow-lg">Get Started</button>
+</div>
+</div>
+</nav>
+<main class="pt-24 overflow-x-hidden">
+<!-- Hero Section -->
+<section class="relative px-margin-mobile md:px-margin-desktop py-20 max-w-container-max mx-auto text-center md:text-left">
+<!-- Background Decoration -->
+<div class="absolute -top-40 -right-40 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[100px] -z-10"></div>
+<div class="absolute top-20 -left-40 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-[100px] -z-10"></div>
+<div class="grid md:grid-cols-2 gap-16 items-center">
+<div class="space-y-8">
+<div class="inline-flex items-center px-4 py-1.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-md text-label-md border border-primary/10">
+<span class="relative flex h-2 w-2 mr-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+                        Version 2.0 Now Live
+                    </div>
+<h1 class="font-headline-xl text-headline-xl md:text-headline-xl leading-tight">
+                        Enterprise-Grade <br/>
+<span class="text-transparent bg-clip-text primary-gradient">Professional Networking</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg">
+                        Map your organization's social capital with premium analytical depth and end-to-end organizational mapping.
+                    </p>
+<div class="flex flex-col sm:flex-row gap-4 pt-4">
+<button class="primary-gradient text-on-primary font-body-md text-body-md px-8 py-4 rounded-xl shadow-xl hover:shadow-primary/20 transition-all scale-100 active:scale-95">
+                            Get Started Today
+                        </button>
+<button class="glass-panel text-primary border border-primary/30 font-body-md text-body-md px-8 py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-white transition-all scale-100 active:scale-95">
+<span class="material-symbols-outlined">play_circle</span>
+                            Watch Demo
+                        </button>
+</div>
+</div>
+<div class="relative group">
+<div class="glass-panel p-4 rounded-3xl overflow-hidden shadow-2xl transform hover:rotate-1 transition-transform duration-500">
+<img alt="Social Network Graph Interface" class="rounded-2xl w-full object-cover aspect-[4/3]" data-alt="A premium 3D glassmorphic representation of a social graph network, featuring glowing translucent nodes connected by thin fiber-optic light paths. The visual is set against a clean, light-mode background with soft blue and purple ambient lighting. The style is ultra-modern, high-tech enterprise software dashboard with realistic depth of field and soft reflections." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUuFsVQkGefYIlo7Fq2NceVnc9p2ozDchGcCiW-Uuj9KQd0QFVfVT4qlIuGdISwf8hUzBHCCr-vg_rOlZEJi6CCEw8YpfDL2rGRILECElDOXBk7z_4mQbAKOU6UCMHBBYFJEW21CjKJdclOb1PrLNG8zOogu5wAHr4CoIaUIyqy7tG5q7tmhfPJ3TtjDByfH0NQaTMaz62G-3ZFr34HkpnU-fCwyVX2K2l30cEuU9BbQp_2Nqfk8gjwVxiN80Y8Xcw4Pzupl6-StA"/>
+<div class="absolute top-10 -right-8 glass-card p-4 rounded-2xl hidden lg:block animate-bounce shadow-xl">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full primary-gradient flex items-center justify-center">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">hub</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Active Nodes</p>
+<p class="font-headline-md text-headline-md text-primary">12.4M</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Statistics Row -->
+<section class="bg-surface-container-low py-12 border-y border-outline-variant/30">
+<div class="max-w-container-max mx-auto px-margin-desktop">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+<div class="space-y-1">
+<p class="font-headline-md text-headline-md text-primary">12M+</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Nodes Mapped</p>
+</div>
+<div class="space-y-1">
+<p class="font-headline-md text-headline-md text-primary">450+</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Global Enterprises</p>
+</div>
+<div class="space-y-1">
+<p class="font-headline-md text-headline-md text-primary">150%</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Engagement Increase</p>
+</div>
+<div class="space-y-1">
+<p class="font-headline-md text-headline-md text-primary">99.9%</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Uptime SLA</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Feature Highlights (Bento Box) -->
+<section class="px-margin-mobile md:px-margin-desktop py-24 max-w-container-max mx-auto">
+<div class="mb-16 text-center">
+<h2 class="font-headline-lg text-headline-lg mb-4">Precision-Engineered Networking</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mx-auto">Discover how our infrastructure powers the world's most sophisticated relationship management systems.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter-md auto-rows-[280px]">
+<!-- Large Card: Advanced Relationship Mapping -->
+<div class="md:col-span-2 md:row-span-2 glass-card rounded-3xl p-8 flex flex-col justify-between relative overflow-hidden group">
+<div class="relative z-10">
+<div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary">account_tree</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-4">Advanced Relationship Mapping</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md">Visualize complex hierarchical and lateral connections across your entire organization with proprietary graph-mapping algorithms.</p>
+</div>
+<img alt="Complex Relationship Graph" class="absolute -bottom-10 -right-10 w-2/3 h-2/3 object-contain opacity-50 group-hover:scale-110 transition-transform duration-700" data-alt="A detailed, intricate visualization of a data graph with glowing lines and points. The scene is presented on a translucent digital interface with a clean light-mode aesthetic, utilizing white and soft sky blue colors. The lighting is diffused and professional, creating an atmosphere of high-end analytical precision and organizational clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-e0-pDg2c4NSvToyFhMWrrFnsRvCM9KBU4dIB6kqMCFyWwF58JOe0L-M79PIg4wDPdapAsy1xIMZmXcIJuRzHI4Tv7H2LQD3_BiNR6Ui6HKpIN_onQSOqd2kF-t2kPErKLXQ69_7lThZqkorc0jrmClh0tUz2fMqKe0sW8Bm70nQm7FkEtofKX8LKnAx3t1WNg2Gaseghb8D84bPwZ3H_ZkCCS6tFKkpgj5GCo98boEztY4ItoePtAgynqRwH2Ue0xRH6LPSMpWU"/>
+</div>
+<!-- Medium Card: Real-Time Insights -->
+<div class="glass-card rounded-3xl p-8 flex flex-col group">
+<div class="w-12 h-12 rounded-xl bg-tertiary-container/10 flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-tertiary">insights</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-2">Real-Time Insights</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Live telemetry and predictive analytics for network health.</p>
+<div class="mt-auto flex items-end h-16 gap-1">
+<div class="w-full bg-primary/20 rounded-t-sm h-1/2 animate-pulse"></div>
+<div class="w-full bg-primary/40 rounded-t-sm h-3/4 animate-pulse" style="animation-delay: 0.2s"></div>
+<div class="w-full bg-primary rounded-t-sm h-full animate-pulse" style="animation-delay: 0.4s"></div>
+<div class="w-full bg-primary/60 rounded-t-sm h-2/3 animate-pulse" style="animation-delay: 0.1s"></div>
+</div>
+</div>
+<!-- Medium Card: Enterprise Security -->
+<div class="glass-card rounded-3xl p-8 flex flex-col group">
+<div class="w-12 h-12 rounded-xl bg-error-container/10 flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">shield</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-2">Enterprise Security</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">SOC2 Type II compliant with end-to-end encryption for all nodes.</p>
+<div class="mt-auto flex justify-center">
+<span class="material-symbols-outlined text-outline-variant text-[48px]">lock</span>
+</div>
+</div>
+<!-- Small Card: Global Connectivity (Spans across bottom column in md) -->
+<div class="md:col-span-1 glass-card rounded-3xl p-8 flex items-center justify-between group overflow-hidden">
+<div class="z-10">
+<h3 class="font-headline-md text-headline-md mb-1">Global Connectivity</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Distributed across 24 regions</p>
+</div>
+<span class="material-symbols-outlined text-secondary text-[64px] absolute -right-4 opacity-20 group-hover:scale-125 transition-transform duration-500">public</span>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="px-margin-mobile md:px-margin-desktop py-24 mb-24">
+<div class="max-w-4xl mx-auto glass-panel p-12 md:p-20 rounded-[40px] text-center border-2 border-white/40 shadow-2xl relative overflow-hidden">
+<!-- Background decorative glow -->
+<div class="absolute -top-24 -left-24 w-64 h-64 bg-primary/10 blur-[80px]"></div>
+<div class="absolute -bottom-24 -right-24 w-64 h-64 bg-secondary/10 blur-[80px]"></div>
+<h2 class="font-headline-xl text-headline-xl mb-6">Ready to optimize your professional network?</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-xl mx-auto">
+                    Join hundreds of forward-thinking enterprises mapping their growth with NetGraph.
+                </p>
+<div class="flex flex-col sm:flex-row justify-center gap-4">
+<button class="primary-gradient text-on-primary font-body-md text-body-md px-10 py-4 rounded-xl shadow-lg hover:shadow-primary/30 transition-all scale-100 active:scale-95">
+                        Contact Sales
+                    </button>
+<button class="bg-surface-container-highest text-on-surface font-body-md text-body-md px-10 py-4 rounded-xl hover:bg-surface-variant transition-all scale-100 active:scale-95">
+                        Request Demo
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter-md px-margin-desktop py-12 max-w-container-max mx-auto">
+<div class="space-y-6">
+<div class="font-headline-md text-headline-md font-bold text-primary">NetGraph</div>
+<p class="font-body-md text-body-md text-on-surface-variant">The next generation of enterprise relationship intelligence.</p>
+</div>
+<div class="space-y-4">
+<h4 class="font-label-md text-label-md font-bold text-primary uppercase tracking-wider">Product</h4>
+<ul class="space-y-2">
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Platform Overview</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">API Reference</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Security</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Roadmap</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h4 class="font-label-md text-label-md font-bold text-primary uppercase tracking-wider">Company</h4>
+<ul class="space-y-2">
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">About Us</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Careers</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Press Kit</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Contact</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h4 class="font-label-md text-label-md font-bold text-primary uppercase tracking-wider">Legal</h4>
+<ul class="space-y-2">
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Cookie Policy</a></li>
+</ul>
+</div>
+</div>
+<div class="border-t border-outline-variant/30 py-6 text-center">
+<p class="font-body-md text-body-md text-on-surface-variant opacity-80">© 2024 NetGraph. All rights reserved.</p>
+</div>
+</footer>
+<script>
+        // Micro-interaction for hero image tilt
+        const heroCard = document.querySelector('.group');
+        if(heroCard) {
+            heroCard.addEventListener('mousemove', (e) => {
+                const { clientX, clientY } = e;
+                const { left, top, width, height } = heroCard.getBoundingClientRect();
+                const x = (clientX - left) / width - 0.5;
+                const y = (clientY - top) / height - 0.5;
+                
+                heroCard.style.transform = `perspective(1000px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg)`;
+            });
+
+            heroCard.addEventListener('mouseleave', () => {
+                heroCard.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg)`;
+            });
+        }
+    </script>
+</body></html>

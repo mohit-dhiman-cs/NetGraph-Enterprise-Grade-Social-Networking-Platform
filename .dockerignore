@@ -1,0 +1,13 @@
+node_modules
+dist
+target
+*.log
+.git
+.vscode
+.github
+frontend/node_modules
+frontend/dist
+backend/target
+backend/mvnw
+backend/mvnw.cmd
+backend/.mvn

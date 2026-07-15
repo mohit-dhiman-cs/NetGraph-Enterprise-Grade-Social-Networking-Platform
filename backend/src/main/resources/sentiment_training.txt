@@ -1,0 +1,30 @@
+POSITIVE I love this! It's absolutely amazing and wonderful.
+POSITIVE Great job on the new features, everything works perfectly.
+POSITIVE So happy and excited to be using this platform today!
+POSITIVE The design is beautiful and the performance is brilliant.
+POSITIVE I am thrilled with the success we've achieved here.
+POSITIVE Fantastic experience, highly recommend to everyone.
+POSITIVE Outstanding results from the team, very positive outcome.
+POSITIVE Good work, keep it up, I'm delighted!
+POSITIVE Proud to see such incredible progress and win.
+POSITIVE This is the best application I have ever used.
+NEGATIVE This is terrible and absolutely awful.
+NEGATIVE I hate this, it is completely broken and useless.
+NEGATIVE So disappointed, the service is horrible and bad.
+NEGATIVE Frustrating experience with too many issues and problems.
+NEGATIVE Stupid bugs are annoying and making me sad.
+NEGATIVE The worst platform ever, complete failure and disaster.
+NEGATIVE I am angry about this toxic and ugly UI.
+NEGATIVE Disgusting behavior from the support team, a disgrace.
+NEGATIVE This is wrong and corrupt, a total waste of time.
+NEGATIVE The performance is poor and puts us in danger.
+NEUTRAL I am going to the store today to buy some milk.
+NEUTRAL The sky is blue and the grass is green.
+NEUTRAL Just updating my profile with some new information.
+NEUTRAL Checking the dashboard to see what changed yesterday.
+NEUTRAL Meeting at 5pm to discuss the project status.
+NEUTRAL I read an article about database performance.
+NEUTRAL There is a new message in my inbox.
+NEUTRAL The server restarted at midnight.
+NEUTRAL Attached is the report for this quarter.
+NEUTRAL Can you please send me the files when you have time.

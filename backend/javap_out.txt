@@ -1,0 +1,1135 @@
+Classfile /home/alex_theta/Downloads/Social-Media-Network-main/backend/target/classes/com/netgraph/backend/entity/User.class
+  Last modified Apr 22, 2026; size 8568 bytes
+  SHA-256 checksum 430c8b0d0b0d657b345d80d50d2a063a46c7a606805fd78e639dfb95594c647d
+  Compiled from "User.java"
+public class com.netgraph.backend.entity.User
+  minor version: 0
+  major version: 65
+  flags: (0x0021) ACC_PUBLIC, ACC_SUPER
+  this_class: #17                         // com/netgraph/backend/entity/User
+  super_class: #78                        // java/lang/Object
+  interfaces: 0, fields: 18, methods: 46, attributes: 4
+Constant pool:
+    #1 = Fieldref           #2.#3         // com/netgraph/backend/entity/User$Role.USER:Lcom/netgraph/backend/entity/User$Role;
+    #2 = Class              #4            // com/netgraph/backend/entity/User$Role
+    #3 = NameAndType        #5:#6         // USER:Lcom/netgraph/backend/entity/User$Role;
+    #4 = Utf8               com/netgraph/backend/entity/User$Role
+    #5 = Utf8               USER
+    #6 = Utf8               Lcom/netgraph/backend/entity/User$Role;
+    #7 = Class              #8            // java/util/HashSet
+    #8 = Utf8               java/util/HashSet
+    #9 = Methodref          #7.#10        // java/util/HashSet."<init>":()V
+   #10 = NameAndType        #11:#12       // "<init>":()V
+   #11 = Utf8               <init>
+   #12 = Utf8               ()V
+   #13 = Class              #14           // com/netgraph/backend/entity/User$UserBuilder
+   #14 = Utf8               com/netgraph/backend/entity/User$UserBuilder
+   #15 = Methodref          #13.#10       // com/netgraph/backend/entity/User$UserBuilder."<init>":()V
+   #16 = Fieldref           #17.#18       // com/netgraph/backend/entity/User.id:Ljava/lang/String;
+   #17 = Class              #19           // com/netgraph/backend/entity/User
+   #18 = NameAndType        #20:#21       // id:Ljava/lang/String;
+   #19 = Utf8               com/netgraph/backend/entity/User
+   #20 = Utf8               id
+   #21 = Utf8               Ljava/lang/String;
+   #22 = Fieldref           #17.#23       // com/netgraph/backend/entity/User.username:Ljava/lang/String;
+   #23 = NameAndType        #24:#21       // username:Ljava/lang/String;
+   #24 = Utf8               username
+   #25 = Fieldref           #17.#26       // com/netgraph/backend/entity/User.email:Ljava/lang/String;
+   #26 = NameAndType        #27:#21       // email:Ljava/lang/String;
+   #27 = Utf8               email
+   #28 = Fieldref           #17.#29       // com/netgraph/backend/entity/User.password:Ljava/lang/String;
+   #29 = NameAndType        #30:#21       // password:Ljava/lang/String;
+   #30 = Utf8               password
+   #31 = Fieldref           #17.#32       // com/netgraph/backend/entity/User.displayName:Ljava/lang/String;
+   #32 = NameAndType        #33:#21       // displayName:Ljava/lang/String;
+   #33 = Utf8               displayName
+   #34 = Fieldref           #17.#35       // com/netgraph/backend/entity/User.bio:Ljava/lang/String;
+   #35 = NameAndType        #36:#21       // bio:Ljava/lang/String;
+   #36 = Utf8               bio
+   #37 = Fieldref           #17.#38       // com/netgraph/backend/entity/User.avatarUrl:Ljava/lang/String;
+   #38 = NameAndType        #39:#21       // avatarUrl:Ljava/lang/String;
+   #39 = Utf8               avatarUrl
+   #40 = Fieldref           #17.#41       // com/netgraph/backend/entity/User.location:Ljava/lang/String;
+   #41 = NameAndType        #42:#21       // location:Ljava/lang/String;
+   #42 = Utf8               location
+   #43 = Fieldref           #17.#44       // com/netgraph/backend/entity/User.website:Ljava/lang/String;
+   #44 = NameAndType        #45:#21       // website:Ljava/lang/String;
+   #45 = Utf8               website
+   #46 = Fieldref           #17.#47       // com/netgraph/backend/entity/User.role:Lcom/netgraph/backend/entity/User$Role;
+   #47 = NameAndType        #48:#6        // role:Lcom/netgraph/backend/entity/User$Role;
+   #48 = Utf8               role
+   #49 = Fieldref           #17.#50       // com/netgraph/backend/entity/User.active:Z
+   #50 = NameAndType        #51:#52       // active:Z
+   #51 = Utf8               active
+   #52 = Utf8               Z
+   #53 = Fieldref           #17.#54       // com/netgraph/backend/entity/User.followerCount:I
+   #54 = NameAndType        #55:#56       // followerCount:I
+   #55 = Utf8               followerCount
+   #56 = Utf8               I
+   #57 = Fieldref           #17.#58       // com/netgraph/backend/entity/User.followingCount:I
+   #58 = NameAndType        #59:#56       // followingCount:I
+   #59 = Utf8               followingCount
+   #60 = Fieldref           #17.#61       // com/netgraph/backend/entity/User.postCount:I
+   #61 = NameAndType        #62:#56       // postCount:I
+   #62 = Utf8               postCount
+   #63 = Fieldref           #17.#64       // com/netgraph/backend/entity/User.createdAt:Ljava/time/LocalDateTime;
+   #64 = NameAndType        #65:#66       // createdAt:Ljava/time/LocalDateTime;
+   #65 = Utf8               createdAt
+   #66 = Utf8               Ljava/time/LocalDateTime;
+   #67 = Fieldref           #17.#68       // com/netgraph/backend/entity/User.updatedAt:Ljava/time/LocalDateTime;
+   #68 = NameAndType        #69:#66       // updatedAt:Ljava/time/LocalDateTime;
+   #69 = Utf8               updatedAt
+   #70 = Fieldref           #17.#71       // com/netgraph/backend/entity/User.following:Ljava/util/Set;
+   #71 = NameAndType        #72:#73       // following:Ljava/util/Set;
+   #72 = Utf8               following
+   #73 = Utf8               Ljava/util/Set;
+   #74 = Fieldref           #17.#75       // com/netgraph/backend/entity/User.followers:Ljava/util/Set;
+   #75 = NameAndType        #76:#73       // followers:Ljava/util/Set;
+   #76 = Utf8               followers
+   #77 = Methodref          #78.#10       // java/lang/Object."<init>":()V
+   #78 = Class              #79           // java/lang/Object
+   #79 = Utf8               java/lang/Object
+   #80 = Methodref          #17.#81       // com/netgraph/backend/entity/User.$default$role:()Lcom/netgraph/backend/entity/User$Role;
+   #81 = NameAndType        #82:#83       // $default$role:()Lcom/netgraph/backend/entity/User$Role;
+   #82 = Utf8               $default$role
+   #83 = Utf8               ()Lcom/netgraph/backend/entity/User$Role;
+   #84 = Methodref          #17.#85       // com/netgraph/backend/entity/User.$default$active:()Z
+   #85 = NameAndType        #86:#87       // $default$active:()Z
+   #86 = Utf8               $default$active
+   #87 = Utf8               ()Z
+   #88 = Methodref          #17.#89       // com/netgraph/backend/entity/User.$default$followerCount:()I
+   #89 = NameAndType        #90:#91       // $default$followerCount:()I
+   #90 = Utf8               $default$followerCount
+   #91 = Utf8               ()I
+   #92 = Methodref          #17.#93       // com/netgraph/backend/entity/User.$default$followingCount:()I
+   #93 = NameAndType        #94:#91       // $default$followingCount:()I
+   #94 = Utf8               $default$followingCount
+   #95 = Methodref          #17.#96       // com/netgraph/backend/entity/User.$default$postCount:()I
+   #96 = NameAndType        #97:#91       // $default$postCount:()I
+   #97 = Utf8               $default$postCount
+   #98 = Methodref          #17.#99       // com/netgraph/backend/entity/User.$default$following:()Ljava/util/Set;
+   #99 = NameAndType        #100:#101     // $default$following:()Ljava/util/Set;
+  #100 = Utf8               $default$following
+  #101 = Utf8               ()Ljava/util/Set;
+  #102 = Methodref          #17.#103      // com/netgraph/backend/entity/User.$default$followers:()Ljava/util/Set;
+  #103 = NameAndType        #104:#101     // $default$followers:()Ljava/util/Set;
+  #104 = Utf8               $default$followers
+  #105 = Utf8               RuntimeVisibleAnnotations
+  #106 = Utf8               Ljakarta/persistence/Id;
+  #107 = Utf8               Ljakarta/persistence/GeneratedValue;
+  #108 = Utf8               strategy
+  #109 = Utf8               Ljakarta/persistence/GenerationType;
+  #110 = Utf8               UUID
+  #111 = Utf8               Ljakarta/validation/constraints/NotBlank;
+  #112 = Utf8               Ljakarta/persistence/Column;
+  #113 = Utf8               unique
+  #114 = Integer            1
+  #115 = Utf8               nullable
+  #116 = Integer            0
+  #117 = Utf8               RuntimeVisibleTypeAnnotations
+  #118 = Utf8               Ljakarta/validation/constraints/Email;
+  #119 = Utf8               Lcom/fasterxml/jackson/annotation/JsonIgnore;
+  #120 = Utf8               Ljakarta/persistence/Enumerated;
+  #121 = Utf8               value
+  #122 = Utf8               Ljakarta/persistence/EnumType;
+  #123 = Utf8               STRING
+  #124 = Utf8               Lorg/hibernate/annotations/CreationTimestamp;
+  #125 = Utf8               Lorg/hibernate/annotations/UpdateTimestamp;
+  #126 = Utf8               Signature
+  #127 = Utf8               Ljava/util/Set<Lcom/netgraph/backend/entity/User;>;
+  #128 = Utf8               Ljakarta/persistence/ManyToMany;
+  #129 = Utf8               fetch
+  #130 = Utf8               Ljakarta/persistence/FetchType;
+  #131 = Utf8               LAZY
+  #132 = Utf8               Ljakarta/persistence/JoinTable;
+  #133 = Utf8               name
+  #134 = Utf8               user_follows
+  #135 = Utf8               joinColumns
+  #136 = Utf8               Ljakarta/persistence/JoinColumn;
+  #137 = Utf8               follower_id
+  #138 = Utf8               inverseJoinColumns
+  #139 = Utf8               following_id
+  #140 = Utf8               mappedBy
+  #141 = Utf8               Code
+  #142 = Utf8               LineNumberTable
+  #143 = Utf8               RuntimeInvisibleAnnotations
+  #144 = Utf8               Llombok/Generated;
+  #145 = Utf8               ()Ljava/util/Set<Lcom/netgraph/backend/entity/User;>;
+  #146 = Utf8               builder
+  #147 = Utf8               ()Lcom/netgraph/backend/entity/User$UserBuilder;
+  #148 = Utf8               getId
+  #149 = Utf8               ()Ljava/lang/String;
+  #150 = Utf8               LocalVariableTable
+  #151 = Utf8               this
+  #152 = Utf8               Lcom/netgraph/backend/entity/User;
+  #153 = Utf8               getUsername
+  #154 = Utf8               getEmail
+  #155 = Utf8               getPassword
+  #156 = Utf8               getDisplayName
+  #157 = Utf8               getBio
+  #158 = Utf8               getAvatarUrl
+  #159 = Utf8               getLocation
+  #160 = Utf8               getWebsite
+  #161 = Utf8               getRole
+  #162 = Utf8               isActive
+  #163 = Utf8               getFollowerCount
+  #164 = Utf8               getFollowingCount
+  #165 = Utf8               getPostCount
+  #166 = Utf8               getCreatedAt
+  #167 = Utf8               ()Ljava/time/LocalDateTime;
+  #168 = Utf8               getUpdatedAt
+  #169 = Utf8               getFollowing
+  #170 = Utf8               getFollowers
+  #171 = Utf8               setId
+  #172 = Utf8               (Ljava/lang/String;)V
+  #173 = Utf8               MethodParameters
+  #174 = Utf8               setUsername
+  #175 = Utf8               setEmail
+  #176 = Utf8               setPassword
+  #177 = Utf8               setDisplayName
+  #178 = Utf8               setBio
+  #179 = Utf8               setAvatarUrl
+  #180 = Utf8               setLocation
+  #181 = Utf8               setWebsite
+  #182 = Utf8               setRole
+  #183 = Utf8               (Lcom/netgraph/backend/entity/User$Role;)V
+  #184 = Utf8               setActive
+  #185 = Utf8               (Z)V
+  #186 = Utf8               setFollowerCount
+  #187 = Utf8               (I)V
+  #188 = Utf8               setFollowingCount
+  #189 = Utf8               setPostCount
+  #190 = Utf8               setCreatedAt
+  #191 = Utf8               (Ljava/time/LocalDateTime;)V
+  #192 = Utf8               setUpdatedAt
+  #193 = Utf8               setFollowing
+  #194 = Utf8               (Ljava/util/Set;)V
+  #195 = Utf8               LocalVariableTypeTable
+  #196 = Utf8               (Ljava/util/Set<Lcom/netgraph/backend/entity/User;>;)V
+  #197 = Utf8               setFollowers
+  #198 = Utf8               (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/netgraph/backend/entity/User$Role;ZIIILjava/time/LocalDateTime;Ljava/time/LocalDateTime;Ljava/util/Set;Ljava/util/Set;)V
+  #199 = Utf8               (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/netgraph/backend/entity/User$Role;ZIIILjava/time/LocalDateTime;Ljava/time/LocalDateTime;Ljava/util/Set<Lcom/netgraph/backend/entity/User;>;Ljava/util/Set<Lcom/netgraph/backend/entity/User;>;)V
+  #200 = Utf8               SourceFile
+  #201 = Utf8               User.java
+  #202 = Utf8               Ljakarta/persistence/Entity;
+  #203 = Utf8               Ljakarta/persistence/Table;
+  #204 = Utf8               users
+  #205 = Utf8               indexes
+  #206 = Utf8               Ljakarta/persistence/Index;
+  #207 = Utf8               idx_user_username
+  #208 = Utf8               columnList
+  #209 = Utf8               idx_user_email
+  #210 = Utf8               NestMembers
+  #211 = Utf8               InnerClasses
+  #212 = Utf8               Role
+  #213 = Utf8               UserBuilder
+{
+  public static com.netgraph.backend.entity.User$UserBuilder builder();
+    descriptor: ()Lcom/netgraph/backend/entity/User$UserBuilder;
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=0, args_size=0
+         0: new           #13                 // class com/netgraph/backend/entity/User$UserBuilder
+         3: dup
+         4: invokespecial #15                 // Method com/netgraph/backend/entity/User$UserBuilder."<init>":()V
+         7: areturn
+      LineNumberTable:
+        line 20: 0
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public java.lang.String getId();
+    descriptor: ()Ljava/lang/String;
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #16                 // Field id:Ljava/lang/String;
+         4: areturn
+      LineNumberTable:
+        line 25: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/netgraph/backend/entity/User;
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public java.lang.String getUsername();
+    descriptor: ()Ljava/lang/String;
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #22                 // Field username:Ljava/lang/String;
+         4: areturn
+      LineNumberTable:
+        line 29: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/netgraph/backend/entity/User;
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public java.lang.String getEmail();
+    descriptor: ()Ljava/lang/String;
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #25                 // Field email:Ljava/lang/String;
+         4: areturn
+      LineNumberTable:
+        line 33: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/netgraph/backend/entity/User;
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public java.lang.String getPassword();
+    descriptor: ()Ljava/lang/String;
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #28                 // Field password:Ljava/lang/String;
+         4: areturn
+      LineNumberTable:
+        line 38: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/netgraph/backend/entity/User;
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public java.lang.String getDisplayName();
+    descriptor: ()Ljava/lang/String;
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #31                 // Field displayName:Ljava/lang/String;
+         4: areturn
+      LineNumberTable:
+        line 40: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/netgraph/backend/entity/User;
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public java.lang.String getBio();
+    descriptor: ()Ljava/lang/String;
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #34                 // Field bio:Ljava/lang/String;
+         4: areturn
+      LineNumberTable:
+        line 41: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/netgraph/backend/entity/User;
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public java.lang.String getAvatarUrl();
+    descriptor: ()Ljava/lang/String;
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #37                 // Field avatarUrl:Ljava/lang/String;
+         4: areturn
+      LineNumberTable:
+        line 42: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/netgraph/backend/entity/User;
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public java.lang.String getLocation();
+    descriptor: ()Ljava/lang/String;
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #40                 // Field location:Ljava/lang/String;
+         4: areturn
+      LineNumberTable:
+        line 43: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/netgraph/backend/entity/User;
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public java.lang.String getWebsite();
+    descriptor: ()Ljava/lang/String;
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #43                 // Field website:Ljava/lang/String;
+         4: areturn
+      LineNumberTable:
+        line 44: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/netgraph/backend/entity/User;
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public com.netgraph.backend.entity.User$Role getRole();
+    descriptor: ()Lcom/netgraph/backend/entity/User$Role;
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #46                 // Field role:Lcom/netgraph/backend/entity/User$Role;
+         4: areturn
+      LineNumberTable:
+        line 48: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/netgraph/backend/entity/User;
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public boolean isActive();
+    descriptor: ()Z
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #49                 // Field active:Z
+         4: ireturn
+      LineNumberTable:
+        line 51: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/netgraph/backend/entity/User;
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public int getFollowerCount();
+    descriptor: ()I
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #53                 // Field followerCount:I
+         4: ireturn
+      LineNumberTable:
+        line 54: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/netgraph/backend/entity/User;
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public int getFollowingCount();
+    descriptor: ()I
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #57                 // Field followingCount:I
+         4: ireturn
+      LineNumberTable:
+        line 57: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/netgraph/backend/entity/User;
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public int getPostCount();
+    descriptor: ()I
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #60                 // Field postCount:I
+         4: ireturn
+      LineNumberTable:
+        line 60: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/netgraph/backend/entity/User;
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public java.time.LocalDateTime getCreatedAt();
+    descriptor: ()Ljava/time/LocalDateTime;
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #63                 // Field createdAt:Ljava/time/LocalDateTime;
+         4: areturn
+      LineNumberTable:
+        line 63: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/netgraph/backend/entity/User;
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public java.time.LocalDateTime getUpdatedAt();
+    descriptor: ()Ljava/time/LocalDateTime;
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #67                 // Field updatedAt:Ljava/time/LocalDateTime;
+         4: areturn
+      LineNumberTable:
+        line 66: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/netgraph/backend/entity/User;
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public java.util.Set<com.netgraph.backend.entity.User> getFollowing();
+    descriptor: ()Ljava/util/Set;
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #70                 // Field following:Ljava/util/Set;
+         4: areturn
+      LineNumberTable:
+        line 77: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/netgraph/backend/entity/User;
+    Signature: #145                         // ()Ljava/util/Set<Lcom/netgraph/backend/entity/User;>;
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public java.util.Set<com.netgraph.backend.entity.User> getFollowers();
+    descriptor: ()Ljava/util/Set;
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #74                 // Field followers:Ljava/util/Set;
+         4: areturn
+      LineNumberTable:
+        line 83: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/netgraph/backend/entity/User;
+    Signature: #145                         // ()Ljava/util/Set<Lcom/netgraph/backend/entity/User;>;
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public void setId(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: aload_1
+         2: putfield      #16                 // Field id:Ljava/lang/String;
+         5: return
+      LineNumberTable:
+        line 20: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       6     0  this   Lcom/netgraph/backend/entity/User;
+            0       6     1    id   Ljava/lang/String;
+    MethodParameters:
+      Name                           Flags
+      id                             final
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public void setUsername(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: aload_1
+         2: putfield      #22                 // Field username:Ljava/lang/String;
+         5: return
+      LineNumberTable:
+        line 20: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       6     0  this   Lcom/netgraph/backend/entity/User;
+            0       6     1 username   Ljava/lang/String;
+    MethodParameters:
+      Name                           Flags
+      username                       final
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public void setEmail(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: aload_1
+         2: putfield      #25                 // Field email:Ljava/lang/String;
+         5: return
+      LineNumberTable:
+        line 20: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       6     0  this   Lcom/netgraph/backend/entity/User;
+            0       6     1 email   Ljava/lang/String;
+    MethodParameters:
+      Name                           Flags
+      email                          final
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public void setPassword(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: aload_1
+         2: putfield      #28                 // Field password:Ljava/lang/String;
+         5: return
+      LineNumberTable:
+        line 20: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       6     0  this   Lcom/netgraph/backend/entity/User;
+            0       6     1 password   Ljava/lang/String;
+    MethodParameters:
+      Name                           Flags
+      password                       final
+    RuntimeVisibleAnnotations:
+      0: #119()
+        com.fasterxml.jackson.annotation.JsonIgnore
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public void setDisplayName(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: aload_1
+         2: putfield      #31                 // Field displayName:Ljava/lang/String;
+         5: return
+      LineNumberTable:
+        line 20: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       6     0  this   Lcom/netgraph/backend/entity/User;
+            0       6     1 displayName   Ljava/lang/String;
+    MethodParameters:
+      Name                           Flags
+      displayName                    final
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public void setBio(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: aload_1
+         2: putfield      #34                 // Field bio:Ljava/lang/String;
+         5: return
+      LineNumberTable:
+        line 20: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       6     0  this   Lcom/netgraph/backend/entity/User;
+            0       6     1   bio   Ljava/lang/String;
+    MethodParameters:
+      Name                           Flags
+      bio                            final
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public void setAvatarUrl(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: aload_1
+         2: putfield      #37                 // Field avatarUrl:Ljava/lang/String;
+         5: return
+      LineNumberTable:
+        line 20: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       6     0  this   Lcom/netgraph/backend/entity/User;
+            0       6     1 avatarUrl   Ljava/lang/String;
+    MethodParameters:
+      Name                           Flags
+      avatarUrl                      final
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public void setLocation(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: aload_1
+         2: putfield      #40                 // Field location:Ljava/lang/String;
+         5: return
+      LineNumberTable:
+        line 20: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       6     0  this   Lcom/netgraph/backend/entity/User;
+            0       6     1 location   Ljava/lang/String;
+    MethodParameters:
+      Name                           Flags
+      location                       final
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public void setWebsite(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: aload_1
+         2: putfield      #43                 // Field website:Ljava/lang/String;
+         5: return
+      LineNumberTable:
+        line 20: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       6     0  this   Lcom/netgraph/backend/entity/User;
+            0       6     1 website   Ljava/lang/String;
+    MethodParameters:
+      Name                           Flags
+      website                        final
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public void setRole(com.netgraph.backend.entity.User$Role);
+    descriptor: (Lcom/netgraph/backend/entity/User$Role;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: aload_1
+         2: putfield      #46                 // Field role:Lcom/netgraph/backend/entity/User$Role;
+         5: return
+      LineNumberTable:
+        line 20: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       6     0  this   Lcom/netgraph/backend/entity/User;
+            0       6     1  role   Lcom/netgraph/backend/entity/User$Role;
+    MethodParameters:
+      Name                           Flags
+      role                           final
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public void setActive(boolean);
+    descriptor: (Z)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: iload_1
+         2: putfield      #49                 // Field active:Z
+         5: return
+      LineNumberTable:
+        line 20: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       6     0  this   Lcom/netgraph/backend/entity/User;
+            0       6     1 active   Z
+    MethodParameters:
+      Name                           Flags
+      active                         final
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public void setFollowerCount(int);
+    descriptor: (I)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: iload_1
+         2: putfield      #53                 // Field followerCount:I
+         5: return
+      LineNumberTable:
+        line 20: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       6     0  this   Lcom/netgraph/backend/entity/User;
+            0       6     1 followerCount   I
+    MethodParameters:
+      Name                           Flags
+      followerCount                  final
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public void setFollowingCount(int);
+    descriptor: (I)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: iload_1
+         2: putfield      #57                 // Field followingCount:I
+         5: return
+      LineNumberTable:
+        line 20: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       6     0  this   Lcom/netgraph/backend/entity/User;
+            0       6     1 followingCount   I
+    MethodParameters:
+      Name                           Flags
+      followingCount                 final
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public void setPostCount(int);
+    descriptor: (I)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: iload_1
+         2: putfield      #60                 // Field postCount:I
+         5: return
+      LineNumberTable:
+        line 20: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       6     0  this   Lcom/netgraph/backend/entity/User;
+            0       6     1 postCount   I
+    MethodParameters:
+      Name                           Flags
+      postCount                      final
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public void setCreatedAt(java.time.LocalDateTime);
+    descriptor: (Ljava/time/LocalDateTime;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: aload_1
+         2: putfield      #63                 // Field createdAt:Ljava/time/LocalDateTime;
+         5: return
+      LineNumberTable:
+        line 20: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       6     0  this   Lcom/netgraph/backend/entity/User;
+            0       6     1 createdAt   Ljava/time/LocalDateTime;
+    MethodParameters:
+      Name                           Flags
+      createdAt                      final
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public void setUpdatedAt(java.time.LocalDateTime);
+    descriptor: (Ljava/time/LocalDateTime;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: aload_1
+         2: putfield      #67                 // Field updatedAt:Ljava/time/LocalDateTime;
+         5: return
+      LineNumberTable:
+        line 20: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       6     0  this   Lcom/netgraph/backend/entity/User;
+            0       6     1 updatedAt   Ljava/time/LocalDateTime;
+    MethodParameters:
+      Name                           Flags
+      updatedAt                      final
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public void setFollowing(java.util.Set<com.netgraph.backend.entity.User>);
+    descriptor: (Ljava/util/Set;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: aload_1
+         2: putfield      #70                 // Field following:Ljava/util/Set;
+         5: return
+      LineNumberTable:
+        line 20: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       6     0  this   Lcom/netgraph/backend/entity/User;
+            0       6     1 following   Ljava/util/Set;
+      LocalVariableTypeTable:
+        Start  Length  Slot  Name   Signature
+            0       6     1 following   Ljava/util/Set<Lcom/netgraph/backend/entity/User;>;
+    MethodParameters:
+      Name                           Flags
+      following                      final
+    Signature: #196                         // (Ljava/util/Set<Lcom/netgraph/backend/entity/User;>;)V
+    RuntimeVisibleAnnotations:
+      0: #119()
+        com.fasterxml.jackson.annotation.JsonIgnore
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public void setFollowers(java.util.Set<com.netgraph.backend.entity.User>);
+    descriptor: (Ljava/util/Set;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: aload_1
+         2: putfield      #74                 // Field followers:Ljava/util/Set;
+         5: return
+      LineNumberTable:
+        line 20: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       6     0  this   Lcom/netgraph/backend/entity/User;
+            0       6     1 followers   Ljava/util/Set;
+      LocalVariableTypeTable:
+        Start  Length  Slot  Name   Signature
+            0       6     1 followers   Ljava/util/Set<Lcom/netgraph/backend/entity/User;>;
+    MethodParameters:
+      Name                           Flags
+      followers                      final
+    Signature: #196                         // (Ljava/util/Set<Lcom/netgraph/backend/entity/User;>;)V
+    RuntimeVisibleAnnotations:
+      0: #119()
+        com.fasterxml.jackson.annotation.JsonIgnore
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public com.netgraph.backend.entity.User();
+    descriptor: ()V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #77                 // Method java/lang/Object."<init>":()V
+         4: aload_0
+         5: invokestatic  #80                 // Method $default$role:()Lcom/netgraph/backend/entity/User$Role;
+         8: putfield      #46                 // Field role:Lcom/netgraph/backend/entity/User$Role;
+        11: aload_0
+        12: invokestatic  #84                 // Method $default$active:()Z
+        15: putfield      #49                 // Field active:Z
+        18: aload_0
+        19: invokestatic  #88                 // Method $default$followerCount:()I
+        22: putfield      #53                 // Field followerCount:I
+        25: aload_0
+        26: invokestatic  #92                 // Method $default$followingCount:()I
+        29: putfield      #57                 // Field followingCount:I
+        32: aload_0
+        33: invokestatic  #95                 // Method $default$postCount:()I
+        36: putfield      #60                 // Field postCount:I
+        39: aload_0
+        40: invokestatic  #98                 // Method $default$following:()Ljava/util/Set;
+        43: putfield      #70                 // Field following:Ljava/util/Set;
+        46: aload_0
+        47: invokestatic  #102                // Method $default$followers:()Ljava/util/Set;
+        50: putfield      #74                 // Field followers:Ljava/util/Set;
+        53: return
+      LineNumberTable:
+        line 20: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      54     0  this   Lcom/netgraph/backend/entity/User;
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+
+  public com.netgraph.backend.entity.User(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, com.netgraph.backend.entity.User$Role, boolean, int, int, int, java.time.LocalDateTime, java.time.LocalDateTime, java.util.Set<com.netgraph.backend.entity.User>, java.util.Set<com.netgraph.backend.entity.User>);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/netgraph/backend/entity/User$Role;ZIIILjava/time/LocalDateTime;Ljava/time/LocalDateTime;Ljava/util/Set;Ljava/util/Set;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=19, args_size=19
+         0: aload_0
+         1: invokespecial #77                 // Method java/lang/Object."<init>":()V
+         4: aload_0
+         5: aload_1
+         6: putfield      #16                 // Field id:Ljava/lang/String;
+         9: aload_0
+        10: aload_2
+        11: putfield      #22                 // Field username:Ljava/lang/String;
+        14: aload_0
+        15: aload_3
+        16: putfield      #25                 // Field email:Ljava/lang/String;
+        19: aload_0
+        20: aload         4
+        22: putfield      #28                 // Field password:Ljava/lang/String;
+        25: aload_0
+        26: aload         5
+        28: putfield      #31                 // Field displayName:Ljava/lang/String;
+        31: aload_0
+        32: aload         6
+        34: putfield      #34                 // Field bio:Ljava/lang/String;
+        37: aload_0
+        38: aload         7
+        40: putfield      #37                 // Field avatarUrl:Ljava/lang/String;
+        43: aload_0
+        44: aload         8
+        46: putfield      #40                 // Field location:Ljava/lang/String;
+        49: aload_0
+        50: aload         9
+        52: putfield      #43                 // Field website:Ljava/lang/String;
+        55: aload_0
+        56: aload         10
+        58: putfield      #46                 // Field role:Lcom/netgraph/backend/entity/User$Role;
+        61: aload_0
+        62: iload         11
+        64: putfield      #49                 // Field active:Z
+        67: aload_0
+        68: iload         12
+        70: putfield      #53                 // Field followerCount:I
+        73: aload_0
+        74: iload         13
+        76: putfield      #57                 // Field followingCount:I
+        79: aload_0
+        80: iload         14
+        82: putfield      #60                 // Field postCount:I
+        85: aload_0
+        86: aload         15
+        88: putfield      #63                 // Field createdAt:Ljava/time/LocalDateTime;
+        91: aload_0
+        92: aload         16
+        94: putfield      #67                 // Field updatedAt:Ljava/time/LocalDateTime;
+        97: aload_0
+        98: aload         17
+       100: putfield      #70                 // Field following:Ljava/util/Set;
+       103: aload_0
+       104: aload         18
+       106: putfield      #74                 // Field followers:Ljava/util/Set;
+       109: return
+      LineNumberTable:
+        line 20: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0     110     0  this   Lcom/netgraph/backend/entity/User;
+            0     110     1    id   Ljava/lang/String;
+            0     110     2 username   Ljava/lang/String;
+            0     110     3 email   Ljava/lang/String;
+            0     110     4 password   Ljava/lang/String;
+            0     110     5 displayName   Ljava/lang/String;
+            0     110     6   bio   Ljava/lang/String;
+            0     110     7 avatarUrl   Ljava/lang/String;
+            0     110     8 location   Ljava/lang/String;
+            0     110     9 website   Ljava/lang/String;
+            0     110    10  role   Lcom/netgraph/backend/entity/User$Role;
+            0     110    11 active   Z
+            0     110    12 followerCount   I
+            0     110    13 followingCount   I
+            0     110    14 postCount   I
+            0     110    15 createdAt   Ljava/time/LocalDateTime;
+            0     110    16 updatedAt   Ljava/time/LocalDateTime;
+            0     110    17 following   Ljava/util/Set;
+            0     110    18 followers   Ljava/util/Set;
+      LocalVariableTypeTable:
+        Start  Length  Slot  Name   Signature
+            0     110    17 following   Ljava/util/Set<Lcom/netgraph/backend/entity/User;>;
+            0     110    18 followers   Ljava/util/Set<Lcom/netgraph/backend/entity/User;>;
+    MethodParameters:
+      Name                           Flags
+      id                             final
+      username                       final
+      email                          final
+      password                       final
+      displayName                    final
+      bio                            final
+      avatarUrl                      final
+      location                       final
+      website                        final
+      role                           final
+      active                         final
+      followerCount                  final
+      followingCount                 final
+      postCount                      final
+      createdAt                      final
+      updatedAt                      final
+      following                      final
+      followers                      final
+    Signature: #199                         // (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/netgraph/backend/entity/User$Role;ZIIILjava/time/LocalDateTime;Ljava/time/LocalDateTime;Ljava/util/Set<Lcom/netgraph/backend/entity/User;>;Ljava/util/Set<Lcom/netgraph/backend/entity/User;>;)V
+    RuntimeInvisibleAnnotations:
+      0: #144()
+        lombok.Generated
+}
+SourceFile: "User.java"
+RuntimeVisibleAnnotations:
+  0: #202()
+    jakarta.persistence.Entity
+  1: #203(#133=s#204,#205=[@#206(#133=s#207,#208=s#24),@#206(#133=s#209,#208=s#27)])
+    jakarta.persistence.Table(
+      name="users"
+      indexes=[@jakarta.persistence.Index(
+        name="idx_user_username"
+        columnList="username"
+      ),@jakarta.persistence.Index(
+        name="idx_user_email"
+        columnList="email"
+      )]
+    )
+NestMembers:
+  com/netgraph/backend/entity/User$UserBuilder
+  com/netgraph/backend/entity/User$Role
+InnerClasses:
+  public static final #212= #2 of #17;    // Role=class com/netgraph/backend/entity/User$Role of class com/netgraph/backend/entity/User
+  public static #213= #13 of #17;         // UserBuilder=class com/netgraph/backend/entity/User$UserBuilder of class com/netgraph/backend/entity/User

@@ -1,0 +1,1 @@
+{"token":"eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhbGV4eHl6IiwiaWF0IjoxNzc2ODU1ODI4LCJleHAiOjE3NzY5NDIyMjh9.LbH9c9vBg8dI0fB3A3e63u-05Ov5WO62PH-_HB6s-4YqmFjaV63waez6AXDxxZTF","userId":"196fbcdb-f1b9-4bef-9efd-059567a0e984","username":"alexxyz","displayName":"Alex","role":"USER"}
