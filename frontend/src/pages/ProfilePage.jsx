@@ -11,6 +11,7 @@ export default function ProfilePage() {
 
   const [profile, setProfile]   = useState(null);
   const [loading, setLoading]   = useState(true);
+  const [error, setError]       = useState(null);
   const [following, setFollowing] = useState(false);
   const [actionLoading, setActionLoading] = useState(false);
   
@@ -29,6 +30,7 @@ export default function ProfilePage() {
   const load = useCallback(async () => {
     try {
       setLoading(true);
+      setError(null);
       const profileRes = await userApi.getUser(targetId);
       setProfile(profileRes.data);
       setFollowing(profileRes.data.followedByCurrentUser || false);
@@ -39,7 +41,8 @@ export default function ProfilePage() {
         website: profileRes.data.website || ''
       });
       setAvatarPreview(profileRes.data.avatarUrl || null);
-    } catch {
+    } catch (err) {
+      setError(err.response?.data?.message || 'Could not load profile');
       toast.error('Could not load profile');
     } finally {
       setLoading(false);
@@ -100,8 +103,17 @@ export default function ProfilePage() {
   };
 
   if (loading) return (
-    <div className="flex justify-center items-center h-64">
-      <span className="material-symbols-outlined animate-spin text-[48px] text-primary">refresh</span>
+    <div className="flex flex-col gap-lg">
+      <div className="glass-panel h-64 rounded-2xl animate-pulse bg-surface-container-high/50" />
+      <div className="glass-panel h-96 rounded-2xl animate-pulse bg-surface-container-high/50" />
+    </div>
+  );
+
+  if (error) return (
+    <div className="glass-panel p-12 text-center rounded-2xl border border-error/30 bg-error/5">
+      <h2 className="font-title-lg text-title-lg text-error mb-2">Error Loading Profile</h2>
+      <p className="font-body-lg text-error">{error}</p>
+      <button className="mt-4 px-4 py-2 bg-error text-white rounded-lg" onClick={load}>Retry</button>
     </div>
   );
 

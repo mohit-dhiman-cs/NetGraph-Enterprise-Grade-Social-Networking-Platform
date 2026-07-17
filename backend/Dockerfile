@@ -1,7 +1,10 @@
 # Build stage
 FROM eclipse-temurin:21-jdk-jammy AS build
 WORKDIR /app
-COPY . .
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
+RUN ./mvnw dependency:go-offline
+COPY src ./src
 RUN ./mvnw clean package -Dmaven.test.skip=true
 
 # Run stage

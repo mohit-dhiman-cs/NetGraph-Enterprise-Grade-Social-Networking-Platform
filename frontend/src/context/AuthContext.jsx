@@ -7,22 +7,45 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const fetchUser = async () => {
+    try {
+      const res = await userApi.getMe();
+      setUser(res.data);
+    } catch (err) {
+      setUser(null);
+      localStorage.removeItem('ng_token');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    userApi.getMe()
-      .then(res => setUser(res.data))
-      .catch(() => setUser({ username: 'guest', role: 'USER', displayName: 'Guest', userId: 0 }))
-      .finally(() => setLoading(false));
+    const token = localStorage.getItem('ng_token');
+    if (token) {
+      fetchUser();
+    } else {
+      setLoading(false);
+      setUser(null);
+    }
   }, []);
 
-  const login = useCallback(async () => { return user; }, [user]);
-  const register = useCallback(async () => { return user; }, [user]);
-  const logout = useCallback(() => {}, []);
-  const loginWithToken = useCallback(() => {}, []);
+  const loginWithToken = useCallback(async (token) => {
+    localStorage.setItem('ng_token', token);
+    setLoading(true);
+    await fetchUser();
+  }, []);
 
-  if (loading) return null; // Wait for identity to load
+  const logout = useCallback(() => {
+    localStorage.removeItem('ng_token');
+    setUser(null);
+  }, []);
+
+  if (loading) {
+    return <div className="h-screen w-screen flex items-center justify-center bg-background text-primary"><span className="material-symbols-outlined animate-spin text-5xl">sync</span></div>;
+  }
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, loginWithToken, isAuthenticated: true }}>
+    <AuthContext.Provider value={{ user, loginWithToken, logout, isAuthenticated: !!user }}>
       {children}
     </AuthContext.Provider>
   );

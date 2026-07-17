@@ -4,7 +4,13 @@ const API_BASE = import.meta.env.VITE_API_BASE || '/api';
 
 const api = axios.create({ baseURL: API_BASE });
 
-// Interceptors removed since auth is bypassed
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('ng_token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
 
 export const authApi = {
   register:       (data) => api.post('/auth/register', data),

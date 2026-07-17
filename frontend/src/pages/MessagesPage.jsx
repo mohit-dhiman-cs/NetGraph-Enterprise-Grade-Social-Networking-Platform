@@ -22,6 +22,9 @@ export default function MessagesPage() {
         const wsBase = (import.meta.env.VITE_API_BASE || '/api').replace('/api', '/ws');
         return new SockJS(wsBase);
       },
+      connectHeaders: {
+        Authorization: `Bearer ${localStorage.getItem('ng_token')}`
+      },
       onConnect: () => {
         client.subscribe(`/user/${user.userId}/queue/messages`, (msg) => {
           const body = JSON.parse(msg.body);

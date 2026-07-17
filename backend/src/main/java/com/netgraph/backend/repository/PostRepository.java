@@ -16,6 +16,7 @@ public interface PostRepository extends JpaRepository<Post, String> {
     Page<Post> findByAuthorIdOrderByCreatedAtDesc(String authorId, Pageable pageable);
 
     // Personalized feed: posts from users you follow, ranked by recency + engagement
+    @EntityGraph(attributePaths = {"author"})
     @Query("SELECT p FROM Post p WHERE p.author.id IN :followingIds ORDER BY p.trendScore DESC, p.createdAt DESC")
     Page<Post> findFeedForUser(@Param("followingIds") List<String> followingIds, Pageable pageable);
 
@@ -23,6 +24,7 @@ public interface PostRepository extends JpaRepository<Post, String> {
     List<Post> findTop10ByOrderByTrendScoreDesc();
 
     // Candidate fetching for personalized algorithm
+    @EntityGraph(attributePaths = {"author"})
     List<Post> findTop100ByAuthorIdInOrderByCreatedAtDesc(List<String> authorIds);
 
     // Global Search

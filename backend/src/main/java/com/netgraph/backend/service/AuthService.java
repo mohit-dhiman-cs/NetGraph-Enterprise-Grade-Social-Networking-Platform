@@ -46,13 +46,8 @@ public class AuthService {
         user = userRepository.save(user);
         System.out.println("User saved with ID: " + user.getId());
         
-        // Sync to Neo4j — must NOT propagate failures into the Postgres transaction
-        final User savedUser = user;
-        try {
-            graphSyncService.syncUser(savedUser);
-        } catch (Exception e) {
-            System.err.println("Neo4j sync skipped (non-fatal): " + e.getMessage());
-        }
+        // Sync to Neo4j — failures MUST bubble up to rollback the Postgres transaction
+        graphSyncService.syncUser(user);
 
         try {
             Authentication auth = authenticationManager.authenticate(

@@ -503,21 +503,27 @@ function TrendingPanel() {
 // ── Main Feed ─────────────────────────────────────────────────
 export default function FeedPage() {
   const [posts, setPosts]     = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(true);
+  const [error, setError]     = useState(null);
   const [page, setPage]       = useState(0);
   const [hasMore, setHasMore] = useState(true);
 
   const loadMore = useCallback(async () => {
     if (loading) return;
     setLoading(true);
+    setError(null);
     try {
       const r    = await postApi.getFeed(page, 20);
       const data = r.data;
       setPosts(prev => page === 0 ? (data.content || []) : [...prev, ...(data.content || [])]);
       setHasMore(!data.last);
       if (!data.last) setPage(p => p + 1);
-    } catch { toast.error('Could not load feed'); }
-    finally { setLoading(false); }
+    } catch (err) { 
+      setError(err.response?.data?.message || 'Could not load feed. Please try again.');
+      toast.error('Could not load feed'); 
+    }
+    finally { setLoading(false); setInitialLoading(false); }
   }, [page, loading]);
 
   useEffect(() => { loadMore(); }, []); // eslint-disable-line
@@ -558,11 +564,13 @@ export default function FeedPage() {
 
         <ComposePost onPost={p => setPosts(ps => [p, ...ps])} />
         
-        {loading && page === 0
+        {initialLoading
           ? Array.from({ length: 3 }).map((_, i) => <div key={i} className="glass-panel rounded-2xl h-48 mb-lg animate-pulse bg-surface-container-high/50" />)
-          : posts.length === 0
-            ? <div className="glass-panel p-12 text-center rounded-2xl"><p className="font-body-lg text-on-surface-variant">No posts yet. Follow people or post something!</p></div>
-            : posts.map(p => <PostCard key={p.id} post={p} onLike={handleLike} />)
+          : error
+            ? <div className="glass-panel p-12 text-center rounded-2xl border border-error/30 bg-error/5"><p className="font-body-lg text-error">{error}</p><button className="mt-4 px-4 py-2 bg-error text-white rounded-lg" onClick={() => { setInitialLoading(true); loadMore(); }}>Retry</button></div>
+            : posts.length === 0
+              ? <div className="glass-panel p-12 text-center rounded-2xl"><p className="font-body-lg text-on-surface-variant">No posts yet. Follow people or post something!</p></div>
+              : posts.map(p => <PostCard key={p.id} post={p} onLike={handleLike} />)
         }
         
         <div ref={sentinelRef} className="h-4" />

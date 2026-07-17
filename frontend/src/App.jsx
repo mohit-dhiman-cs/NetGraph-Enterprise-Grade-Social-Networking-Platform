@@ -16,8 +16,16 @@ import NotificationsPage   from './pages/NotificationsPage';
 import GraphPage           from './pages/GraphPage';
 import AiPage              from './pages/AiPage';
 import DevPortalPage       from './pages/DevPortalPage';
+import LoginPage           from './pages/LoginPage';
+import OAuthCallback       from './pages/OAuthCallback';
 import './index.css';
 import './App.css';
+
+function ProtectedRoute({ children }) {
+  const { isAuthenticated } = useAuth();
+  if (!isAuthenticated) return <Navigate to="/login" replace />;
+  return children;
+}
 
 function AppLayout() {
   return (
@@ -58,8 +66,14 @@ export default function App() {
             toastOptions={{ style: { background: '#16161f', color: '#f1f5f9', border: '1px solid rgba(255,255,255,0.07)' } }}
           />
           <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/oauth2/callback" element={<OAuthCallback />} />
             <Route path="/"  element={<Navigate to="/feed" replace />} />
-            <Route path="/*" element={<AppLayout />} />
+            <Route path="/*" element={
+              <ProtectedRoute>
+                <AppLayout />
+              </ProtectedRoute>
+            } />
           </Routes>
           </BrowserRouter>
         </NotificationProvider>

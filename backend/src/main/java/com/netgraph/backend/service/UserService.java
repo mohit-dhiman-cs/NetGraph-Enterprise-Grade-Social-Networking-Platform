@@ -7,6 +7,7 @@ import com.netgraph.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class UserService {
     private final NotificationService notificationService;
     private final GraphSyncService graphSyncService;
 
+    @Cacheable(value = "users", key = "#id")
     public User findById(String id) {
         return userRepository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("User not found: " + id));
@@ -27,6 +29,27 @@ public class UserService {
     public User findByUsername(String username) {
         return userRepository.findByUsername(username)
             .orElseThrow(() -> new IllegalArgumentException("User not found: " + username));
+    }
+
+    @Transactional
+    public User processOAuthUser(String email, String name, String picture) {
+        User user = userRepository.findByEmail(email).orElseGet(() -> {
+            User newUser = new User();
+            newUser.setEmail(email);
+            newUser.setUsername(email.split("@")[0]);
+            newUser.setDisplayName(name);
+            newUser.setAvatarUrl(picture);
+            newUser.setProvider("google");
+            return newUser;
+        });
+
+        user.setDisplayName(name);
+        user.setAvatarUrl(picture);
+        User saved = userRepository.save(user);
+        
+        // Sync to Neo4j. Since this method is @Transactional, failures here will rollback the Postgres save.
+        graphSyncService.syncUser(saved);
+        return saved;
     }
 
     @Transactional

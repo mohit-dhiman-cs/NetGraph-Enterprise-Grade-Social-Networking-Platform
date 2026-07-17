@@ -47,6 +47,7 @@ export default function GraphPage() {
 
   const [graphData, setGraphData]     = useState({ nodes: [], links: [] });
   const [loading, setLoading]         = useState(true);
+  const [error, setError]             = useState(null);
   const [stats, setStats]             = useState(null);
   const [suggestions, setSuggestions] = useState([]);
   const [userMap, setUserMap]         = useState({});
@@ -62,7 +63,9 @@ export default function GraphPage() {
   const [highlightLinks, setHighlightLinks] = useState(new Set());
   const [hoverNode, setHoverNode]       = useState(null);
 
-  useEffect(() => {
+  const loadGraph = useCallback(() => {
+    setLoading(true);
+    setError(null);
     Promise.all([
       graphApi.getNetwork(),
       userApi.getSuggestions(6),
@@ -86,11 +89,17 @@ export default function GraphPage() {
         community: cRes.data?.communitySize || 0,
       });
       setSuggestions(sRes.data || []);
-    }).catch(() => toast.error('Could not load graph'))
-      .finally(() => setLoading(false));
+    }).catch((err) => {
+      setError(err.response?.data?.message || 'Could not load graph');
+      toast.error('Could not load graph');
+    }).finally(() => setLoading(false));
 
     userApi.getSuggestions(50).then(r => setAllUsers(r.data || [])).catch(() => {});
   }, [me?.userId]);
+
+  useEffect(() => {
+    loadGraph();
+  }, [loadGraph]);
 
   useEffect(() => {
     if (!pathSearch.trim()) { setFilteredUsers([]); return; }
@@ -159,6 +168,20 @@ export default function GraphPage() {
       toast.success(`Following ${u.displayName}!`);
     } catch { toast.error('Follow failed'); }
   };
+
+  if (loading) return (
+    <div className="flex justify-center items-center h-full min-h-[600px]">
+      <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-primary"></div>
+    </div>
+  );
+
+  if (error) return (
+    <div className="glass-panel p-12 text-center rounded-2xl border border-error/30 bg-error/5 m-lg">
+      <h2 className="font-title-lg text-title-lg text-error mb-2">Error Loading Graph</h2>
+      <p className="font-body-lg text-error">{error}</p>
+      <button className="mt-4 px-4 py-2 bg-error text-white rounded-lg" onClick={loadGraph}>Retry</button>
+    </div>
+  );
 
   return (
     <div className="pb-xxl max-w-max-width mx-auto">

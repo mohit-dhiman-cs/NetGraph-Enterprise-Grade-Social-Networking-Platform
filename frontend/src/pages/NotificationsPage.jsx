@@ -77,6 +77,7 @@ export default function NotificationsPage() {
   const [notifications, setNotifications] = useState([]);
   const [unread, setUnread]     = useState(0);
   const [loading, setLoading]   = useState(true);
+  const [error, setError]       = useState(null);
   const [page, setPage]         = useState(0);
   const [hasMore, setHasMore]   = useState(true);
   const navigate = useNavigate();
@@ -88,13 +89,17 @@ export default function NotificationsPage() {
 
   async function loadPage(p) {
     setLoading(true);
+    setError(null);
     try {
       const res = await notificationApi.getNotifications(p);
       const data = res.data;
       const items = data.content || [];
       setNotifications(prev => p === 0 ? items : [...prev, ...items]);
       setHasMore(!data.last);
-    } catch { /* silent */ }
+    } catch (err) { 
+      setError(err.response?.data?.message || 'Could not load notifications');
+      toast.error('Could not load notifications'); 
+    }
     finally { setLoading(false); }
   }
 
@@ -137,14 +142,22 @@ export default function NotificationsPage() {
         </div>
       )}
 
-      {/* Empty */}
-      {!loading && notifications.length === 0 && (
-        <div className="card" style={{ textAlign: 'center', padding: 60 }}>
-          <Bell size={40} style={{ color: 'var(--text-muted)', marginBottom: 12 }} />
-          <p style={{ color: 'var(--text-muted)', margin: 0 }}>No notifications yet.</p>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.82rem', marginTop: 4 }}>Follow people and interact to get notifications!</p>
+      {/* Empty / Error state */}
+      {loading && notifications.length === 0 ? (
+        <div style={{ padding: 40, textAlign: 'center' }}>
+          <div className="spinner"></div>
         </div>
-      )}
+      ) : error ? (
+        <div className="glass-panel p-12 text-center rounded-2xl border border-error/30 bg-error/5">
+          <p className="font-body-lg text-error">{error}</p>
+          <button className="mt-4 px-4 py-2 bg-error text-white rounded-lg" onClick={() => loadPage(0)}>Retry</button>
+        </div>
+      ) : notifications.length === 0 ? (
+        <div className="empty-state">
+          <h3>No notifications yet</h3>
+          <p>When you get likes or mentions, they will appear here.</p>
+        </div>
+      ) : null}
 
       {/* Notifications list */}
       {notifications.length > 0 && (
