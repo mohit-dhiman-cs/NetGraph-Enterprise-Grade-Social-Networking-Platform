@@ -103,9 +103,20 @@ export default function ProfilePage() {
   };
 
   if (loading) return (
-    <div className="flex flex-col gap-lg">
-      <div className="glass-panel h-64 rounded-2xl animate-pulse bg-surface-container-high/50" />
-      <div className="glass-panel h-96 rounded-2xl animate-pulse bg-surface-container-high/50" />
+    <div className="flex flex-col gap-lg px-4 lg:px-0">
+      <div className="h-64 md:h-80 w-full rounded-[32px] skeleton" />
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-lg mt-24">
+        <div className="lg:col-span-4 space-y-lg">
+          <div className="h-64 rounded-2xl skeleton" />
+          <div className="h-48 rounded-2xl skeleton" />
+        </div>
+        <div className="lg:col-span-8 space-y-lg">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-md">
+            {Array.from({ length: 4 }).map((_, i) => <div key={i} className="h-24 rounded-xl skeleton" />)}
+          </div>
+          <div className="h-64 rounded-2xl skeleton" />
+        </div>
+      </div>
     </div>
   );
 
@@ -284,13 +295,32 @@ export default function ProfilePage() {
           {/* Activity Feed Cards (Placeholder for now) */}
           <div className="space-y-lg">
             {profile.postCount === 0 ? (
-               <div className="glass-panel p-12 text-center rounded-2xl">
-                 <p className="font-body-lg text-on-surface-variant">No posts yet from this user.</p>
+               <div className="card p-12 text-center flex flex-col items-center justify-center py-16">
+                 <div className="w-20 h-20 bg-secondary/10 rounded-full flex items-center justify-center mb-6">
+                   <span className="material-symbols-outlined text-[40px] text-secondary">inventory_2</span>
+                 </div>
+                 <h3 className="text-xl font-bold mb-2">No posts yet</h3>
+                 <p className="text-text-secondary max-w-sm">This user hasn't posted anything yet. Check back later!</p>
                </div>
             ) : (
-               <div className="glass-panel p-12 text-center rounded-2xl border-dashed border-2 border-outline-variant/30">
-                 <span className="material-symbols-outlined text-[48px] text-outline-variant mb-4">hourglass_empty</span>
-                 <p className="font-body-lg text-on-surface-variant">Loading user posts...</p>
+               <div className="space-y-lg">
+                 {Array.from({ length: 2 }).map((_, i) => (
+                    <div key={i} className="card p-lg border border-transparent">
+                      <div className="flex items-center gap-md mb-md">
+                        <div className="w-12 h-12 rounded-full skeleton flex-shrink-0" />
+                        <div className="flex-1 space-y-2">
+                          <div className="h-4 w-32 skeleton rounded" />
+                          <div className="h-3 w-24 skeleton rounded" />
+                        </div>
+                      </div>
+                      <div className="space-y-2 mb-md">
+                        <div className="h-4 w-full skeleton rounded" />
+                        <div className="h-4 w-[90%] skeleton rounded" />
+                        <div className="h-4 w-[60%] skeleton rounded" />
+                      </div>
+                      <div className="h-[200px] w-full skeleton rounded-xl" />
+                    </div>
+                 ))}
                </div>
             )}
           </div>

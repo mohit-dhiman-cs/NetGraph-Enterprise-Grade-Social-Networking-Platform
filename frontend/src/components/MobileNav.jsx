@@ -25,13 +25,13 @@ export default function MobileNav() {
   };
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white/70 backdrop-blur-2xl border-t border-white/20 z-50 flex justify-around items-center py-sm shadow-lg">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 glass-panel border-t border-outline-variant/20 z-50 flex justify-around items-center pt-sm pb-[calc(env(safe-area-inset-bottom,16px)+8px)] shadow-2xl rounded-none">
       {navItem('home', 'Home', '/feed')}
       {navItem('explore', 'Explore', '/discover')}
       
       <div className="relative -top-6">
-        <button className="w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg shadow-primary/30 flex items-center justify-center scale-110 active:scale-95 transition-transform">
-          <span className="material-symbols-outlined">add</span>
+        <button className="w-14 h-14 bg-gradient-to-r from-primary to-secondary text-white rounded-full shadow-lg shadow-primary/30 flex items-center justify-center hover:scale-105 active:scale-95 transition-transform">
+          <span className="material-symbols-outlined text-[28px]">add</span>
         </button>
       </div>
       

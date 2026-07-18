@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { notificationApi } from '../api/client';
-import { useEffect, useState } from 'react';
+import { useNotifications } from '../context/NotificationContext';
 
 const NAV = [
   { icon: 'home',          label: 'Home',          path: '/feed' },
@@ -20,14 +19,7 @@ const NAV = [
 export default function Sidebar() {
   const { user } = useAuth();
   const location = useLocation();
-  const [unread, setUnread] = useState(0);
-
-  useEffect(() => {
-    const load = () => notificationApi.getUnreadCount().then(r => setUnread(r.data || 0)).catch(() => {});
-    load();
-    const id = setInterval(load, 30000);
-    return () => clearInterval(id);
-  }, []);
+  const { unreadCount: unread } = useNotifications();
 
   const isActive = (path) => {
     if (path === '/profile') return location.pathname.startsWith('/profile');

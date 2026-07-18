@@ -34,8 +34,7 @@ public class User implements Serializable {
     private String email;
 
     @JsonIgnore
-    @NotBlank
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String password;
 
     private String displayName;
@@ -43,6 +42,9 @@ public class User implements Serializable {
     private String avatarUrl;
     private String location;
     private String website;
+
+    @Builder.Default
+    private String provider = "local";
 
     @Enumerated(EnumType.STRING)
     @Builder.Default

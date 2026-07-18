@@ -28,7 +28,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     private final UserService userService;
     private final GraphSyncService graphSyncService;
 
-    @Value("${FRONTEND_URL:http://localhost:5173}")
+    @Value("${app.frontend.url:http://localhost:5173}")
     private String frontendUrl;
 
     @Override
@@ -42,7 +42,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
         User saved = userService.processOAuthUser(email, name, picture);
 
-        String token = tokenProvider.generateToken(authentication);
+        String token = tokenProvider.generateTokenFromUsername(saved.getUsername());
 
         String targetUrl = UriComponentsBuilder.fromUriString(frontendUrl + "/oauth2/callback")
                 .queryParam("token", token)

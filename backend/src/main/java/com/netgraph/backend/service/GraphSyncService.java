@@ -1,62 +1,57 @@
 package com.netgraph.backend.service;
 
 import com.netgraph.backend.entity.User;
-import com.netgraph.backend.node.UserNode;
-import com.netgraph.backend.node.UserNodeRepository;
 import lombok.RequiredArgsConstructor;
+import org.neo4j.driver.Driver;
+import org.neo4j.driver.Session;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 @lombok.extern.slf4j.Slf4j
 public class GraphSyncService {
 
-    private final UserNodeRepository userNodeRepository;
+    private final Driver neo4jDriver;
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void syncUser(User user) {
-        try {
-            UserNode node = UserNode.builder()
-                .id(user.getId())
-                .username(user.getUsername())
-                .displayName(user.getDisplayName())
-                .build();
-            userNodeRepository.save(node);
+        try (Session session = neo4jDriver.session()) {
+            session.run("MERGE (u:User {id: $id}) SET u.username = $username, u.displayName = $displayName",
+                    org.neo4j.driver.Values.parameters(
+                            "id", user.getId(),
+                            "username", user.getUsername(),
+                            "displayName", user.getDisplayName()
+                    ));
         } catch (Exception e) {
             log.error("Failed to sync user to Neo4j: {}", e.getMessage());
-            throw new RuntimeException("Neo4j sync failed", e);
+            throw new RuntimeException("Failed to sync user to Neo4j", e);
         }
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void syncFollow(String followerId, String followingId) {
-        try {
-            UserNode follower = userNodeRepository.findById(followerId).orElse(null);
-            UserNode following = userNodeRepository.findById(followingId).orElse(null);
-            
-            if (follower != null && following != null) {
-                follower.getFollowing().add(following);
-                userNodeRepository.save(follower);
-            }
+        try (Session session = neo4jDriver.session()) {
+            session.run("MATCH (f:User {id: $followerId}), (t:User {id: $followingId}) " +
+                            "MERGE (f)-[:FOLLOWS]->(t)",
+                    org.neo4j.driver.Values.parameters(
+                            "followerId", followerId,
+                            "followingId", followingId
+                    ));
         } catch (Exception e) {
             log.error("Failed to sync follow to Neo4j: {}", e.getMessage());
-            throw new RuntimeException("Neo4j sync failed", e);
+            throw new RuntimeException("Failed to sync follow to Neo4j", e);
         }
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void syncUnfollow(String followerId, String followingId) {
-        try {
-            UserNode follower = userNodeRepository.findById(followerId).orElse(null);
-            if (follower != null) {
-                follower.getFollowing().removeIf(node -> node.getId().equals(followingId));
-                userNodeRepository.save(follower);
-            }
+        try (Session session = neo4jDriver.session()) {
+            session.run("MATCH (f:User {id: $followerId})-[r:FOLLOWS]->(t:User {id: $followingId}) " +
+                            "DELETE r",
+                    org.neo4j.driver.Values.parameters(
+                            "followerId", followerId,
+                            "followingId", followingId
+                    ));
         } catch (Exception e) {
             log.error("Failed to sync unfollow to Neo4j: {}", e.getMessage());
-            throw new RuntimeException("Neo4j sync failed", e);
+            throw new RuntimeException("Failed to sync unfollow to Neo4j", e);
         }
     }
 }

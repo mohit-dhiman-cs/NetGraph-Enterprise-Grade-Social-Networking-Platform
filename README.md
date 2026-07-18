@@ -19,11 +19,11 @@ Instead of treating connections as basic foreign keys in a relational database, 
 
 ## Business & Technical Highlights
 
-- **Graph Recommendation Engine**: Processes intelligent friend suggestions based on mutual connection scoring in under 300ms using multi-hop Graph Traversals.
-- **Top-Tier Security**: Complete JWT-based stateless authentication flow with BCrypt password hashing and Spring Security Role-Based Access Control (RBAC). 
-- **Real-Time WebSockets**: Bi-directional messaging layer built with WebSockets, handling high-concurrency instant chat with typing indicators.
+- **Graph Recommendation Engine**: Processes intelligent friend suggestions and models connection paths using BFS/DFS Graph Traversals over relational data.
+- **Modern Security**: Complete OAuth2 authentication flow (Google Sign-In) with stateless JWT session management and Spring Security Role-Based Access Control (RBAC). 
+- **Real-Time WebSockets**: Bi-directional messaging layer built with Spring WebSockets and STOMP, supporting instant chat and typing indicators.
 - **Admin Dashboard**: Analytics pipeline grouping user engagement metrics into actionable visualizations.
-- **AI Sentiment & Content Generation**: Built-in trained Machine Learning model using Apache OpenNLP to evaluate post sentiment, alongside an OpenAI integration to auto-generate engaging post ideas.
+- **Sentiment & Content Generation**: Built-in keyword-based sentiment analysis engine to evaluate post sentiment, alongside an integration stub for auto-generating engaging post ideas.
 
 ## Quick Start
 

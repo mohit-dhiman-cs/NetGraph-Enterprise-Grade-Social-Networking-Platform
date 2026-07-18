@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.CacheEvict;
 
 import java.util.List;
 
@@ -21,6 +23,7 @@ public class PostService {
     private final com.netgraph.backend.graph.SocialGraphEngine graphEngine;
 
     @Transactional
+    @CacheEvict(value = {"feed", "trending", "user_feed"}, allEntries = true)
     public Post createPost(String authorId, String content, String imageUrl) {
         User author = userRepository.findById(authorId)
             .orElseThrow(() -> new IllegalArgumentException("User not found"));
@@ -31,6 +34,7 @@ public class PostService {
     }
 
     @Transactional
+    @CacheEvict(value = {"feed", "trending", "user_feed"}, allEntries = true)
     public Post likePost(String postId, String userId) {
         Post post = postRepository.findById(postId)
             .orElseThrow(() -> new IllegalArgumentException("Post not found"));
@@ -54,6 +58,7 @@ public class PostService {
     }
 
     @Transactional
+    @CacheEvict(value = {"feed", "trending", "user_feed"}, allEntries = true)
     public Post unlikePost(String postId, String userId) {
         Post post = postRepository.findById(postId)
             .orElseThrow(() -> new IllegalArgumentException("Post not found"));
@@ -64,6 +69,8 @@ public class PostService {
         return postRepository.save(post);
     }
 
+    @Transactional(readOnly = true)
+    @Cacheable(value = "user_feed", key = "#userId + '-' + #limit")
     public List<Post> getPersonalizedFeed(String userId, int limit) {
         User user = userRepository.findById(userId)
             .orElseThrow(() -> new IllegalArgumentException("User not found"));
@@ -104,6 +111,8 @@ public class PostService {
         return baseScore * affinity;
     }
 
+    @Transactional(readOnly = true)
+    @Cacheable(value = "feed", key = "#userId + '-' + #page + '-' + #size")
     public Page<Post> getFeed(String userId, int page, int size) {
         User user = userRepository.findById(userId)
             .orElseThrow(() -> new IllegalArgumentException("User not found"));
@@ -115,6 +124,7 @@ public class PostService {
         return postRepository.findFeedForUser(followingIds, PageRequest.of(page, size));
     }
 
+    @Cacheable(value = "trending")
     public List<Post> getTrending() {
         return postRepository.findTop10ByOrderByTrendScoreDesc();
     }

@@ -1,6 +1,7 @@
 package com.netgraph.backend.config;
 
 import com.netgraph.backend.security.JwtTokenProvider;
+import com.netgraph.backend.security.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.Message;
@@ -12,6 +13,8 @@ import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.util.StringUtils;
 import org.springframework.web.socket.config.annotation.*;
 
@@ -21,6 +24,7 @@ import org.springframework.web.socket.config.annotation.*;
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     private final JwtTokenProvider jwtTokenProvider;
+    private final UserDetailsServiceImpl userDetailsService;
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
@@ -47,7 +51,9 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                     if (StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")) {
                         String token = authHeader.substring(7);
                         if (jwtTokenProvider.validateToken(token)) {
-                            Authentication auth = jwtTokenProvider.getAuthentication(token);
+                            String username = jwtTokenProvider.getUsernameFromToken(token);
+                            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                            Authentication auth = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                             accessor.setUser(auth);
                         }
                     }

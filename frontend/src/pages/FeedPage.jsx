@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 import toast from 'react-hot-toast';
+import OnboardingModal from '../components/OnboardingModal';
 
 const REACTIONS = ['❤️','😂','😮','😢','😡','👏'];
 function timeAgo(ts) {
@@ -508,6 +509,15 @@ export default function FeedPage() {
   const [error, setError]     = useState(null);
   const [page, setPage]       = useState(0);
   const [hasMore, setHasMore] = useState(true);
+  const { user }              = useAuth();
+  const [showOnboarding, setShowOnboarding] = useState(false);
+
+  useEffect(() => {
+    if (user && !user.bio && !localStorage.getItem('ng_onboarding_seen')) {
+      setShowOnboarding(true);
+      localStorage.setItem('ng_onboarding_seen', 'true');
+    }
+  }, [user]);
 
   const loadMore = useCallback(async () => {
     if (loading) return;
@@ -565,11 +575,33 @@ export default function FeedPage() {
         <ComposePost onPost={p => setPosts(ps => [p, ...ps])} />
         
         {initialLoading
-          ? Array.from({ length: 3 }).map((_, i) => <div key={i} className="glass-panel rounded-2xl h-48 mb-lg animate-pulse bg-surface-container-high/50" />)
+          ? Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className="card p-lg mb-lg border border-transparent">
+                <div className="flex items-center gap-md mb-md">
+                  <div className="w-12 h-12 rounded-full skeleton flex-shrink-0" />
+                  <div className="flex-1 space-y-2">
+                    <div className="h-4 w-32 skeleton rounded" />
+                    <div className="h-3 w-24 skeleton rounded" />
+                  </div>
+                </div>
+                <div className="space-y-2 mb-md">
+                  <div className="h-4 w-full skeleton rounded" />
+                  <div className="h-4 w-[90%] skeleton rounded" />
+                  <div className="h-4 w-[60%] skeleton rounded" />
+                </div>
+                <div className="h-[200px] w-full skeleton rounded-xl" />
+              </div>
+            ))
           : error
             ? <div className="glass-panel p-12 text-center rounded-2xl border border-error/30 bg-error/5"><p className="font-body-lg text-error">{error}</p><button className="mt-4 px-4 py-2 bg-error text-white rounded-lg" onClick={() => { setInitialLoading(true); loadMore(); }}>Retry</button></div>
             : posts.length === 0
-              ? <div className="glass-panel p-12 text-center rounded-2xl"><p className="font-body-lg text-on-surface-variant">No posts yet. Follow people or post something!</p></div>
+              ? <div className="card p-12 text-center flex flex-col items-center justify-center py-16 mb-lg">
+                  <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                    <span className="material-symbols-outlined text-[40px] text-primary">feed</span>
+                  </div>
+                  <h3 className="text-xl font-bold mb-2 text-on-surface">Welcome to your Feed</h3>
+                  <p className="text-text-secondary max-w-sm mb-6">When you follow people or communities, you'll see their posts here. Ready to find some connections?</p>
+                </div>
               : posts.map(p => <PostCard key={p.id} post={p} onLike={handleLike} />)
         }
         
@@ -596,6 +628,8 @@ export default function FeedPage() {
           </footer>
         </div>
       </aside>
+
+      <OnboardingModal isOpen={showOnboarding} onClose={() => setShowOnboarding(false)} />
     </div>
   );
 }

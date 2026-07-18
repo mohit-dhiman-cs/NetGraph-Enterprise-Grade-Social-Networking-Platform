@@ -12,6 +12,8 @@ export default function MessagesPage() {
   const [targetId, setTargetId] = useState('');
   const [activeChat, setActiveChat] = useState(null);
   const [typing, setTyping]     = useState(false);
+  const [chatLoading, setChatLoading] = useState(false);
+  const [chatError, setChatError] = useState(null);
   const stompRef = useRef(null);
   const bottomRef = useRef(null);
 
@@ -45,8 +47,18 @@ export default function MessagesPage() {
 
   const openChat = async (uid) => {
     setActiveChat(uid);
-    try { const r = await messageApi.getConversation(uid); setMessages(r.data); }
-    catch { setMessages([]); }
+    setChatLoading(true);
+    setChatError(null);
+    try { 
+      const r = await messageApi.getConversation(uid); 
+      setMessages(r.data); 
+    }
+    catch (err) { 
+      setMessages([]); 
+      setChatError(err.response?.data?.message || 'Failed to load conversation');
+      import('react-hot-toast').then(m => m.default.error('Could not load conversation'));
+    }
+    finally { setChatLoading(false); }
   };
 
   const sendMessage = (e) => {
@@ -95,14 +107,29 @@ export default function MessagesPage() {
             </div>
 
             <div style={{ flex: 1, overflowY: 'auto', padding: 20, display: 'flex', flexDirection: 'column', gap: 8 }}>
-              {messages.map((m, i) => {
+              {chatLoading ? (
+                <div className="flex flex-col gap-4 p-4">
+                  <div className="w-2/3 h-12 rounded-xl skeleton self-start border border-transparent" />
+                  <div className="w-1/2 h-12 rounded-xl skeleton self-start border border-transparent" />
+                  <div className="w-2/3 h-12 rounded-xl skeleton self-end border border-transparent" />
+                  <div className="w-3/4 h-12 rounded-xl skeleton self-start border border-transparent" />
+                </div>
+              ) : chatError ? (
+                <div className="text-center p-5 text-error">{chatError}</div>
+              ) : messages.length === 0 ? (
+                <div className="flex-1 flex flex-col items-center justify-center text-center p-5 opacity-60">
+                  <span className="material-symbols-outlined text-[48px] mb-2">forum</span>
+                  <p>No messages yet. Send a message to start the conversation!</p>
+                </div>
+              ) : (
+                messages.map((m, i) => {
                 const isMine = m.sender?.id === user.userId || m.sender === user.userId;
                 return (
                   <div key={i} style={{ display: 'flex', justifyContent: isMine ? 'flex-end' : 'flex-start' }} className="fade-in">
                     <div className={`msg-bubble ${isMine ? 'sent' : 'received'}`}>{m.content}</div>
                   </div>
                 );
-              })}
+              }))}
               <div ref={bottomRef} />
             </div>
 
@@ -114,9 +141,9 @@ export default function MessagesPage() {
             </form>
           </>
         ) : (
-          <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 12 }}>
-            <div style={{ fontSize: '3rem' }}>💬</div>
-            <h3>Select a conversation</h3>
+          <div className="flex-1 flex items-center justify-center flex-col gap-3 opacity-60">
+            <span className="material-symbols-outlined text-[64px]">chat_bubble_outline</span>
+            <h3 className="text-xl font-bold">Select a conversation</h3>
             <p>Enter a User ID on the left to start a real-time chat.</p>
           </div>
         )}

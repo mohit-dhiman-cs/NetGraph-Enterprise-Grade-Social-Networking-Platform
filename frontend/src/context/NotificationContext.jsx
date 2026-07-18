@@ -1,14 +1,35 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import { useAuth } from './AuthContext';
 import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import toast from 'react-hot-toast';
+import { notificationApi } from '../api/client';
 
 const NotificationContext = createContext();
 
 export function NotificationProvider({ children }) {
   const { user, token } = useAuth();
   const [stompClient, setStompClient] = useState(null);
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  const fetchUnreadCount = useCallback(async () => {
+    if (!user) return;
+    try {
+      const res = await notificationApi.getUnreadCount();
+      setUnreadCount(res.data || 0);
+    } catch {
+      // silent fail
+    }
+  }, [user]);
+
+  const markAllRead = useCallback(async () => {
+    try {
+      await notificationApi.markAsRead();
+      setUnreadCount(0);
+    } catch (e) {
+      console.error('Failed to mark read', e);
+    }
+  }, []);
 
   useEffect(() => {
     if (!user?.username || !token) {
@@ -16,8 +37,12 @@ export function NotificationProvider({ children }) {
         stompClient.deactivate();
         setStompClient(null);
       }
+      setUnreadCount(0);
       return;
     }
+
+    // Fetch initial count
+    fetchUnreadCount();
 
     // Determine WebSocket URL based on API_BASE
     const API_BASE = import.meta.env.VITE_API_BASE || '/api';
@@ -36,7 +61,8 @@ export function NotificationProvider({ children }) {
         client.subscribe(`/user/${user.username}/queue/notifications`, (message) => {
           if (message.body) {
             const notification = JSON.parse(message.body);
-            toast(`🔔 ${notification.content}`, {
+            setUnreadCount(prev => prev + 1);
+            toast(`🔔 ${notification.content || notification.message || 'New notification'}`, {
               duration: 5000,
               position: 'top-right',
               style: { 
@@ -61,10 +87,10 @@ export function NotificationProvider({ children }) {
     return () => {
       client.deactivate();
     };
-  }, [user, token]);
+  }, [user, token, fetchUnreadCount]);
 
   return (
-    <NotificationContext.Provider value={{ stompClient }}>
+    <NotificationContext.Provider value={{ stompClient, unreadCount, setUnreadCount, markAllRead }}>
       {children}
     </NotificationContext.Provider>
   );

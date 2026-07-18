@@ -14,9 +14,13 @@ export default function DiscoverPage() {
   const [path, setPath]             = useState(null);
   const [searching, setSearching]   = useState(false);
   const [pathLoading, setPathLoading] = useState(false);
+  const [suggestionsLoading, setSuggestionsLoading] = useState(true);
 
   useEffect(() => {
-    userApi.getSuggestions(8).then(r => setSuggestions(r.data)).catch(() => {});
+    userApi.getSuggestions(8)
+      .then(r => setSuggestions(r.data))
+      .catch(() => {})
+      .finally(() => setSuggestionsLoading(false));
   }, []);
 
   const handleSearch = async (e) => {
@@ -41,8 +45,15 @@ export default function DiscoverPage() {
     e.preventDefault();
     if (!pathTarget.trim()) return;
     setPathLoading(true);
-    try { const r = await userApi.getPath(pathTarget); setPath(r.data); }
-    catch { toast.error('Path not found'); }
+    setPath(null);
+    try { 
+      const r = await userApi.getPath(pathTarget); 
+      setPath(r.data); 
+    }
+    catch (err) { 
+      toast.error(err.response?.data?.message || 'Path not found'); 
+      setPath({ error: 'Path not found' });
+    }
     finally { setPathLoading(false); }
   };
 
@@ -84,7 +95,9 @@ export default function DiscoverPage() {
         </form>
         {path && (
           <div style={{ marginTop: 16 }}>
-            {path.path?.length > 0 ? (
+            {path.error ? (
+              <span className="badge badge-warning">{path.error}</span>
+            ) : path.path?.length > 0 ? (
               <>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', marginBottom: 8 }}>
                   {path.path.map((id, i) => (
@@ -109,7 +122,11 @@ export default function DiscoverPage() {
         </h3>
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 14 }}>
-        {displayList.map(u => (
+        {searching || (suggestionsLoading && !query) ? (
+          Array.from({ length: 6 }).map((_, i) => (
+            <div key={i} className="user-card skeleton" style={{ height: '88px', border: 'none' }} />
+          ))
+        ) : displayList.map(u => (
           <div key={u.id} className="user-card">
             <div className="avatar avatar-lg">{u.displayName?.[0] || '?'}</div>
             <div style={{ flex: 1 }}>
@@ -126,8 +143,9 @@ export default function DiscoverPage() {
             </button>
           </div>
         ))}
-        {!displayList.length && !searching && (
+        {!displayList.length && !searching && !suggestionsLoading && (
           <div className="card" style={{ textAlign: 'center', gridColumn: '1/-1', padding: 40 }}>
+            <span className="material-symbols-outlined text-[48px] text-outline-variant mb-4">search_off</span>
             <p>No users found. Try a different search query.</p>
           </div>
         )}

@@ -17,8 +17,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
+
 @SpringBootTest
 @AutoConfigureMockMvc
+@ActiveProfiles("test")
+@Transactional
 public class FeedIntegrationTest {
 
     @Autowired
@@ -32,8 +37,6 @@ public class FeedIntegrationTest {
 
     @BeforeEach
     void setUp() {
-        postRepository.deleteAll();
-        userRepository.deleteAll();
 
         User user = User.builder()
             .username("admin")
@@ -52,7 +55,7 @@ public class FeedIntegrationTest {
     @Test
     @WithMockUser(username = "admin")
     void testGetFeed_ReturnsPosts() throws Exception {
-        mockMvc.perform(get("/api/posts")
+        mockMvc.perform(get("/api/posts/feed")
                 .param("page", "0")
                 .param("size", "10")
                 .contentType(MediaType.APPLICATION_JSON))

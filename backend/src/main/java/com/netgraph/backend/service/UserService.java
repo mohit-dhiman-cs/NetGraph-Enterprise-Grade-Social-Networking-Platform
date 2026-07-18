@@ -40,6 +40,7 @@ public class UserService {
             newUser.setDisplayName(name);
             newUser.setAvatarUrl(picture);
             newUser.setProvider("google");
+            newUser.setPassword(java.util.UUID.randomUUID().toString()); // Dummy password for OAuth users
             return newUser;
         });
 
@@ -93,6 +94,7 @@ public class UserService {
     }
 
     /** BFS friend suggestions — graded by mutual connection count */
+    @Transactional(readOnly = true)
     public List<UserSummaryDto> getSuggestedUsers(String userId, int limit) {
         User user = findById(userId);
         List<SocialGraphEngine.ScoredUser> suggestions = graphEngine.suggestFriends(user, limit);
@@ -102,6 +104,7 @@ public class UserService {
     }
 
     /** BFS shortest path between two users */
+    @Transactional(readOnly = true)
     public List<String> getShortestPath(String sourceId, String targetId) {
         User source = findById(sourceId);
         User target = findById(targetId);
@@ -109,11 +112,13 @@ public class UserService {
     }
 
     /** DFS community detection */
+    @Transactional(readOnly = true)
     public int getCommunitySize(String userId) {
         User user = findById(userId);
         return graphEngine.detectCommunity(user).size();
     }
 
+    @Transactional(readOnly = true)
     public List<UserSummaryDto> search(String query, String currentUserId) {
         User currentUser = findById(currentUserId);
         return userRepository.searchUsers(query).stream()

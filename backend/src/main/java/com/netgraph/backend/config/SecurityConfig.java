@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 
 import com.netgraph.backend.security.JwtAuthFilter;
 import com.netgraph.backend.security.OAuth2SuccessHandler;
+import com.netgraph.backend.security.OAuth2FailureHandler;
+import com.netgraph.backend.security.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.netgraph.backend.security.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
