@@ -48,7 +48,7 @@ export default function TopNav() {
             <span className="material-symbols-outlined">settings</span>
           </button>
           <div className="h-8 w-[1px] bg-outline-variant/30 mx-2"></div>
-          <Link to={`/profile/${user?.userId}`}>
+          <Link to={`/profile/${user?.id}`}>
             <div className="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold">
               {user?.displayName?.[0]?.toUpperCase() || 'U'}
             </div>

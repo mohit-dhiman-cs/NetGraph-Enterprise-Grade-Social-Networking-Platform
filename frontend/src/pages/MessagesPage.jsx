@@ -28,20 +28,20 @@ export default function MessagesPage() {
         Authorization: `Bearer ${localStorage.getItem('ng_token')}`
       },
       onConnect: () => {
-        client.subscribe(`/user/${user.userId}/queue/messages`, (msg) => {
+        client.subscribe(`/user/${user.id}/queue/messages`, (msg) => {
           const body = JSON.parse(msg.body);
           setMessages(prev => [...prev, body]);
         });
-        client.subscribe(`/user/${user.userId}/queue/typing`, (msg) => {
+        client.subscribe(`/user/${user.id}/queue/typing`, (msg) => {
           const body = JSON.parse(msg.body);
-          if (body.from !== user.userId) setTyping(body.typing === 'true');
+          if (body.from !== user.id) setTyping(body.typing === 'true');
         });
       },
     });
     client.activate();
     stompRef.current = client;
     return () => client.deactivate();
-  }, [user.userId]);
+  }, [user.id]);
 
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages]);
 
@@ -66,7 +66,7 @@ export default function MessagesPage() {
     if (!input.trim() || !stompRef.current?.connected) return;
     stompRef.current.publish({
       destination: '/app/chat.send',
-      body: JSON.stringify({ senderId: user.userId, receiverId: activeChat, content: input }),
+      body: JSON.stringify({ senderId: user.id, receiverId: activeChat, content: input }),
     });
     setInput('');
   };
@@ -74,7 +74,7 @@ export default function MessagesPage() {
   const sendTyping = (isTyping) => {
     stompRef.current?.connected && stompRef.current.publish({
       destination: '/app/chat.typing',
-      body: JSON.stringify({ senderId: user.userId, receiverId: activeChat, typing: String(isTyping) }),
+      body: JSON.stringify({ senderId: user.id, receiverId: activeChat, typing: String(isTyping) }),
     });
   };
 
@@ -123,7 +123,7 @@ export default function MessagesPage() {
                 </div>
               ) : (
                 messages.map((m, i) => {
-                const isMine = m.sender?.id === user.userId || m.sender === user.userId;
+                const isMine = m.sender?.id === user.id || m.sender === user.id;
                 return (
                   <div key={i} style={{ display: 'flex', justifyContent: isMine ? 'flex-end' : 'flex-start' }} className="fade-in">
                     <div className={`msg-bubble ${isMine ? 'sent' : 'received'}`}>{m.content}</div>

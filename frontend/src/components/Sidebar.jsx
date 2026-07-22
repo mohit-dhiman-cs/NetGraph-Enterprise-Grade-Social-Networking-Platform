@@ -33,7 +33,7 @@ export default function Sidebar() {
         {NAV.map(({ icon, label, path, adminOnly, badge }) => {
           if (adminOnly && user?.role !== 'ADMIN') return null;
           const active = isActive(path);
-          const linkPath = path === '/profile' ? `/profile/${user?.userId}` : path;
+          const linkPath = path === '/profile' ? `/profile/${user?.id}` : path;
           
           return (
             <Link 

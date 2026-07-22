@@ -14,7 +14,7 @@ export default function MobileNav() {
 
   const navItem = (icon, label, path) => {
     const active = isActive(path);
-    const linkPath = path === '/profile' ? `/profile/${user?.userId}` : path;
+    const linkPath = path === '/profile' ? `/profile/${user?.id}` : path;
     
     return (
       <Link to={linkPath} className={`flex flex-col items-center gap-xs ${active ? 'text-primary font-bold' : 'text-on-surface-variant'}`}>

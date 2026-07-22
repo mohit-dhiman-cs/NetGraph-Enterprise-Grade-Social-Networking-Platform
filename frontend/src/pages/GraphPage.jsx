@@ -69,7 +69,7 @@ export default function GraphPage() {
     Promise.all([
       graphApi.getNetwork(),
       userApi.getSuggestions(6),
-      userApi.getCommunity(me?.userId),
+      userApi.getCommunity(me?.id),
     ]).then(([gRes, sRes, cRes]) => {
       const map = {};
       const rawNodes = gRes.data.nodes || [];
@@ -95,7 +95,7 @@ export default function GraphPage() {
     }).finally(() => setLoading(false));
 
     userApi.getSuggestions(50).then(r => setAllUsers(r.data || [])).catch(() => {});
-  }, [me?.userId]);
+  }, [me?.id]);
 
   useEffect(() => {
     loadGraph();

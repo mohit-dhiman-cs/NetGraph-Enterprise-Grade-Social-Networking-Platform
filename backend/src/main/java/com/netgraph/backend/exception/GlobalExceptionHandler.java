@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.Map;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -27,6 +30,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleGeneralException(Exception ex) {
+        log.error("Internal Server Error", ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
             Map.of("error", "Internal Server Error", "message", ex.getMessage())
         );

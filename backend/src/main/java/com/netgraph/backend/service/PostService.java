@@ -23,7 +23,7 @@ public class PostService {
     private final com.netgraph.backend.graph.SocialGraphEngine graphEngine;
 
     @Transactional
-    @CacheEvict(value = {"feed", "trending", "user_feed"}, allEntries = true)
+    @CacheEvict(value = {"trending", "user_feed"}, allEntries = true)
     public Post createPost(String authorId, String content, String imageUrl) {
         User author = userRepository.findById(authorId)
             .orElseThrow(() -> new IllegalArgumentException("User not found"));
@@ -34,7 +34,7 @@ public class PostService {
     }
 
     @Transactional
-    @CacheEvict(value = {"feed", "trending", "user_feed"}, allEntries = true)
+    @CacheEvict(value = {"trending", "user_feed"}, allEntries = true)
     public Post likePost(String postId, String userId) {
         Post post = postRepository.findById(postId)
             .orElseThrow(() -> new IllegalArgumentException("Post not found"));
@@ -58,7 +58,7 @@ public class PostService {
     }
 
     @Transactional
-    @CacheEvict(value = {"feed", "trending", "user_feed"}, allEntries = true)
+    @CacheEvict(value = {"trending", "user_feed"}, allEntries = true)
     public Post unlikePost(String postId, String userId) {
         Post post = postRepository.findById(postId)
             .orElseThrow(() -> new IllegalArgumentException("Post not found"));
@@ -112,7 +112,6 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    @Cacheable(value = "feed", key = "#userId + '-' + #page + '-' + #size")
     public Page<Post> getFeed(String userId, int page, int size) {
         User user = userRepository.findById(userId)
             .orElseThrow(() -> new IllegalArgumentException("User not found"));

@@ -24,8 +24,8 @@ export default function ProfilePage() {
   
   const avatarInputRef = useRef(null);
 
-  const isMe = !id || id === me?.userId;
-  const targetId = id || me?.userId;
+  const isMe = !id || id === me?.id;
+  const targetId = id || me?.id;
 
   const load = useCallback(async () => {
     try {

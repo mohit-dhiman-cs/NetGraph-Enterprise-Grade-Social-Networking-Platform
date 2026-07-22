@@ -80,7 +80,7 @@ function CommentSection({ postId, commentCount }) {
                   <span className="font-label-md text-label-md font-bold">{c.author?.displayName}</span>
                   <div className="flex gap-2 items-center">
                     <span className="font-label-sm text-label-sm text-on-surface-variant">{timeAgo(c.createdAt)}</span>
-                    {c.author?.id === user?.userId && (
+                    {c.author?.id === user?.id && (
                       <button onClick={() => deleteComment(c.id)} className="text-on-surface-variant hover:text-error transition-colors">
                         <span className="material-symbols-outlined text-[14px]">delete</span>
                       </button>
@@ -181,7 +181,7 @@ function SentimentBadge({ content }) {
 function PostCard({ post, onLike }) {
   const { user } = useAuth();
   const navigate  = useNavigate();
-  const liked     = post.likedByUserIds?.includes(user?.userId);
+  const liked     = post.likedByUserIds?.includes(user?.id);
   const [bookmarked, setBookmarked] = useState(() =>
     JSON.parse(localStorage.getItem('ng_bookmarks') || '[]').includes(post.id)
   );
