@@ -550,28 +550,6 @@ export default function FeedPage() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-10 gap-lg">
       <div className="col-span-1 lg:col-span-7 flex flex-col">
-        {/* Stories Row (Static UI placeholder) */}
-        <div className="flex gap-md overflow-x-auto no-scrollbar pb-lg mb-4">
-          <div className="flex-shrink-0 w-24 flex flex-col items-center gap-sm">
-            <div className="relative w-20 h-20 rounded-2xl border-2 border-dashed border-outline-variant flex items-center justify-center bg-white group cursor-pointer hover:border-primary transition-colors">
-              <span className="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">add</span>
-            </div>
-            <span className="font-label-sm text-label-sm text-on-surface-variant">Your Story</span>
-          </div>
-          {[1, 2, 3, 4].map(i => (
-            <div key={i} className="flex-shrink-0 w-24 flex flex-col items-center gap-sm cursor-pointer group">
-              <div className="w-20 h-20 rounded-2xl p-[3px] bg-gradient-to-tr from-primary to-tertiary">
-                <div className="w-full h-full rounded-[13px] border-2 border-white overflow-hidden shadow-inner bg-surface-container-high flex items-center justify-center text-on-surface-variant font-bold text-xl">
-                  {['SJ', 'AC', 'MW', 'RK'][i-1]}
-                </div>
-              </div>
-              <span className="font-label-sm text-label-sm text-on-surface truncate w-full text-center group-hover:text-primary transition-colors">
-                {['Sarah', 'Alex', 'Maya', 'Raj'][i-1]}
-              </span>
-            </div>
-          ))}
-        </div>
-
         <ComposePost onPost={p => setPosts(ps => [p, ...ps])} />
         
         {initialLoading

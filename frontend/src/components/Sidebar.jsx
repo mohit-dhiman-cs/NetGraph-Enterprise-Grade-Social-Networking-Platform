@@ -12,7 +12,7 @@ const NAV = [
   { icon: 'groups',        label: 'Communities',   path: '/communities' },
   { icon: 'person',        label: 'Profile',       path: '/profile' },
   { icon: 'neurology',     label: 'AI Insights',   path: '/ai' },
-  { icon: 'terminal',      label: 'Dev Portal',    path: '/dev' },
+  ...(import.meta.env.DEV ? [{ icon: 'terminal', label: 'Dev Portal', path: '/dev' }] : []),
   { icon: 'admin_panel_settings', label: 'Admin',  path: '/admin', adminOnly: true }
 ];
 

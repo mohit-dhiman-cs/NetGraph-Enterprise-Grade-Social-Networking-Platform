@@ -27,6 +27,12 @@ function ProtectedRoute({ children }) {
   return children;
 }
 
+function RoleRoute({ role, children }) {
+  const { user } = useAuth();
+  if (user?.role !== role) return <Navigate to="/feed" replace />;
+  return children;
+}
+
 function AppLayout() {
   return (
     <div className="font-body-md text-on-surface selection:bg-primary-container selection:text-white bg-background min-h-screen">
@@ -42,10 +48,10 @@ function AppLayout() {
             <Route path="/notifications"    element={<NotificationsPage />} />
             <Route path="/graph"            element={<GraphPage />} />
             <Route path="/ai"              element={<AiPage />} />
-            <Route path="/dev"             element={<DevPortalPage />} />
+            <Route path="/dev"             element={import.meta.env.DEV ? <DevPortalPage /> : <Navigate to="/feed" replace />} />
             <Route path="/profile/:id"      element={<ProfilePage />} />
             <Route path="/profile"          element={<ProfilePage />} />
-            <Route path="/admin"            element={<AdminPage />} />
+            <Route path="/admin"            element={<RoleRoute role="ADMIN"><AdminPage /></RoleRoute>} />
             <Route path="*"                 element={<Navigate to="/feed" replace />} />
           </Routes>
         </section>
