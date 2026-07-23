@@ -23,7 +23,7 @@ jobs:
       matrix:
         include:
           - language: java-kotlin
-            build-mode: autobuild
+            build-mode: manual
           - language: javascript-typescript
             build-mode: none
 
@@ -31,11 +31,25 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Setup Java JDK (for backend)
+        if: matrix.language == 'java-kotlin'
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
           build-mode: ${{ matrix.build-mode }}
+
+      - name: Build Java backend
+        if: matrix.language == 'java-kotlin'
+        run: |
+          cd backend
+          chmod +x mvnw
+          ./mvnw clean compile -DskipTests
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
