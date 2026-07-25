@@ -8,12 +8,18 @@ import OnboardingModal from '../components/OnboardingModal';
 
 const REACTIONS = ['❤️','😂','😮','😢','😡','👏'];
 function sanitizeUrl(url) {
-  if (!url) return null;
+  if (!url) return '';
   const str = String(url).trim();
-  if (str.startsWith('http://') || str.startsWith('https://') || str.startsWith('blob:') || str.startsWith('data:image/') || str.startsWith('/')) {
-    return str;
+  if (str.startsWith('data:image/')) return str;
+  try {
+    const parsed = new URL(str, window.location.origin);
+    if (['http:', 'https:', 'blob:'].includes(parsed.protocol)) {
+      return parsed.href;
+    }
+  } catch {
+    return '';
   }
-  return null;
+  return '';
 }
 function timeAgo(ts) {
   const s = Math.floor((Date.now() - new Date(ts)) / 1000);
