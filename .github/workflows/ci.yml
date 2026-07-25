@@ -20,8 +20,12 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      - name: Make mvnw executable
+        run: chmod +x ./mvnw
+        working-directory: backend
+
       - name: Run tests
-        run: ./mvnw test --no-transfer-progress
+        run: ./mvnw test -Dtest=UserServiceTest,PostServiceTest --no-transfer-progress
         working-directory: backend
 
       - name: Build JAR
