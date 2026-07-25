@@ -10,7 +10,6 @@ const REACTIONS = ['❤️','😂','😮','😢','😡','👏'];
 function sanitizeUrl(url) {
   if (!url) return '';
   const str = String(url).trim();
-  if (str.startsWith('data:image/')) return str;
   try {
     const parsed = new URL(str, window.location.origin);
     if (['http:', 'https:', 'blob:'].includes(parsed.protocol)) {

@@ -7,7 +7,6 @@ import toast from 'react-hot-toast';
 function sanitizeUrl(url) {
   if (!url) return '';
   const str = String(url).trim();
-  if (str.startsWith('data:image/')) return str;
   try {
     const parsed = new URL(str, window.location.origin);
     if (['http:', 'https:', 'blob:'].includes(parsed.protocol)) {
@@ -112,6 +111,12 @@ export default function ProfilePage() {
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      if (!file.type || !file.type.startsWith('image/')) {
+        toast.error('Please select a valid image file');
+        setAvatarFile(null);
+        setAvatarPreview(null);
+        return;
+      }
       setAvatarFile(file);
       setAvatarPreview(URL.createObjectURL(file));
     }
