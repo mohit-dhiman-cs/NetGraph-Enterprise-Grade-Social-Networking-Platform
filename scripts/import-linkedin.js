@@ -17,6 +17,7 @@
 const fs   = require('fs');
 const path = require('path');
 const http = require('http');
+const crypto = require('crypto');
 
 // ── CONFIG ────────────────────────────────────────────────────
 const API_BASE     = 'http://localhost:8080/api';
@@ -89,7 +90,7 @@ function parseLinkedInCSV(filePath) {
 
     const fullName   = `${firstName} ${lastName}`.trim();
     const username   = `${firstName}${lastName}`.toLowerCase()
-                         .replace(/[^a-z0-9]/g, '') + Math.floor(Math.random() * 900 + 100);
+                         .replace(/[^a-z0-9]/g, '') + crypto.randomInt(100, 1000);
 
     connections.push({ fullName, firstName, lastName, username, company, position });
   }
@@ -183,7 +184,7 @@ async function main() {
 
   for (let i = 0; i < createdUsers.length; i++) {
     for (let j = i + 1; j < createdUsers.length; j++) {
-      if (Math.random() < CROSS_RATIO) {
+      if (crypto.randomInt(0, 100) < CROSS_RATIO * 100) {
         await apiRequest('POST', `/users/${createdUsers[j].userId}/follow`, null, createdUsers[i].token);
         crossLinks++;
         await sleep(100);

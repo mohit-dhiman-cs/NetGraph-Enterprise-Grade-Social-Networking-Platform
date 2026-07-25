@@ -7,6 +7,14 @@ import toast from 'react-hot-toast';
 import OnboardingModal from '../components/OnboardingModal';
 
 const REACTIONS = ['❤️','😂','😮','😢','😡','👏'];
+function sanitizeUrl(url) {
+  if (!url) return null;
+  const str = String(url).trim();
+  if (str.startsWith('http://') || str.startsWith('https://') || str.startsWith('blob:') || str.startsWith('data:image/') || str.startsWith('/')) {
+    return str;
+  }
+  return null;
+}
 function timeAgo(ts) {
   const s = Math.floor((Date.now() - new Date(ts)) / 1000);
   if (s < 60) return `${s}s`; if (s < 3600) return `${Math.floor(s/60)}m`;
@@ -223,9 +231,9 @@ function PostCard({ post, onLike }) {
         </p>
       </div>
       
-      {post.imageUrl && (
-        <div className="mx-lg mb-lg rounded-xl overflow-hidden group relative">
-          <img src={post.imageUrl} alt="Post media" className="w-full object-cover max-h-[500px] transition-transform duration-700 group-hover:scale-105" />
+      {sanitizeUrl(post.imageUrl) && (
+        <div className="mt-md -mx-lg mb-md overflow-hidden bg-surface-container-high relative group">
+          <img src={sanitizeUrl(post.imageUrl)} alt="Post media" className="w-full object-cover max-h-[500px] transition-transform duration-700 group-hover:scale-105" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
         </div>
       )}
@@ -385,9 +393,9 @@ function ComposePost({ onPost }) {
             style={{ minHeight: 60, outline: 'none' }} />
         </div>
         
-        {imagePreview && (
+        {sanitizeUrl(imagePreview) && (
           <div className="relative mt-3 ml-14 inline-block">
-            <img src={imagePreview} alt="preview" className="max-h-[200px] rounded-xl border border-outline-variant/20 object-cover" />
+            <img src={sanitizeUrl(imagePreview)} alt="preview" className="max-h-[200px] rounded-xl border border-outline-variant/20 object-cover" />
             <button type="button" onClick={() => { setImageFile(null); setImagePreview(null); }}
               className="absolute -top-2 -right-2 bg-error text-white rounded-full w-6 h-6 flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
               <span className="material-symbols-outlined text-[14px]">close</span>

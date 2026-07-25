@@ -4,6 +4,15 @@ import { userApi, mediaApi } from '../api/client';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 
+function sanitizeUrl(url) {
+  if (!url) return null;
+  const str = String(url).trim();
+  if (str.startsWith('http://') || str.startsWith('https://') || str.startsWith('blob:') || str.startsWith('data:image/') || str.startsWith('/')) {
+    return str;
+  }
+  return null;
+}
+
 export default function ProfilePage() {
   const { id } = useParams();
   const { user: me } = useAuth();
@@ -142,8 +151,8 @@ export default function ProfilePage() {
         <div className="absolute -bottom-16 left-6 md:left-12 flex flex-col md:flex-row items-end gap-lg">
           <div className="relative group perspective-1000">
             <div className="w-32 h-32 md:w-40 md:h-40 rounded-[32px] overflow-hidden border-4 border-white glass-panel p-1 transition-transform duration-500 group-hover:rotate-y-12 group-hover:-rotate-x-12 bg-white/50">
-              {profile.avatarUrl ? (
-                <img alt="Avatar" className="w-full h-full object-cover rounded-[28px]" src={profile.avatarUrl} />
+              {sanitizeUrl(profile.avatarUrl) ? (
+                <img alt="Avatar" className="w-full h-full object-cover rounded-[28px]" src={sanitizeUrl(profile.avatarUrl)} />
               ) : (
                 <div className="w-full h-full rounded-[28px] bg-primary text-white flex items-center justify-center font-bold text-5xl">
                   {profile.displayName?.[0]?.toUpperCase()}
@@ -339,8 +348,8 @@ export default function ProfilePage() {
             <form onSubmit={handleSaveProfile} className="flex flex-col gap-6">
               <div className="flex flex-col items-center gap-4">
                 <div className="w-24 h-24 rounded-full bg-surface-container-highest overflow-hidden border-4 border-white shadow-md relative group cursor-pointer" onClick={() => avatarInputRef.current?.click()}>
-                  {avatarPreview ? (
-                    <img src={avatarPreview} alt="preview" className="w-full h-full object-cover" />
+                  {sanitizeUrl(avatarPreview) ? (
+                    <img src={sanitizeUrl(avatarPreview)} alt="preview" className="w-full h-full object-cover" />
                   ) : (
                     <span className="material-symbols-outlined text-[40px] text-on-surface-variant absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">person</span>
                   )}
