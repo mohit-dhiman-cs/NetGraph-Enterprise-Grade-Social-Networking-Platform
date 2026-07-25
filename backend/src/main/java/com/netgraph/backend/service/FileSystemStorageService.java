@@ -22,7 +22,7 @@ public class FileSystemStorageService implements StorageService {
     private final Path rootLocation;
 
     public FileSystemStorageService(@Value("${storage.location:uploads}") String location) {
-        this.rootLocation = Paths.get(location);
+        this.rootLocation = Paths.get(location).toAbsolutePath().normalize();
     }
 
     @Override
@@ -42,17 +42,19 @@ public class FileSystemStorageService implements StorageService {
                 throw new RuntimeException("Failed to store empty file.");
             }
             
-            // Generate unique filename to prevent overwrites and guessing
-            String originalFilename = StringUtils.cleanPath(file.getOriginalFilename());
+            // Extract & sanitize extension
+            String rawFilename = file.getOriginalFilename() != null ? file.getOriginalFilename() : "";
+            String originalFilename = StringUtils.cleanPath(rawFilename);
             String extension = "";
-            if (originalFilename.contains(".")) {
-                extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+            int dotIdx = originalFilename.lastIndexOf(".");
+            if (dotIdx >= 0) {
+                extension = originalFilename.substring(dotIdx).replaceAll("[^a-zA-Z0-9.]", "");
             }
             
             String newFilename = UUID.randomUUID().toString() + extension;
-            Path destinationFile = this.rootLocation.resolve(Paths.get(newFilename)).normalize().toAbsolutePath();
+            Path destinationFile = this.rootLocation.resolve(newFilename).normalize();
             
-            if (!destinationFile.getParent().equals(this.rootLocation.toAbsolutePath())) {
+            if (!destinationFile.startsWith(this.rootLocation)) {
                 throw new RuntimeException("Cannot store file outside current directory.");
             }
             
@@ -68,7 +70,15 @@ public class FileSystemStorageService implements StorageService {
 
     @Override
     public Path load(String filename) {
-        return rootLocation.resolve(filename);
+        if (filename == null) {
+            throw new RuntimeException("Filename cannot be null");
+        }
+        String cleanFilename = StringUtils.cleanPath(filename);
+        Path file = this.rootLocation.resolve(cleanFilename).normalize();
+        if (!file.startsWith(this.rootLocation)) {
+            throw new RuntimeException("Cannot access file outside current directory.");
+        }
+        return file;
     }
 
     @Override
